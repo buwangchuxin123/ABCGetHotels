@@ -35,7 +35,17 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-}
+    if ([Utilities loginCheck]) {
+        //已登录
+        _loginBtn.hidden = YES;
+        _userNameLabel.hidden = NO;
+    }else{
+        _loginBtn.hidden = NO;
+        _userNameLabel.hidden = YES;
+        _headImage.image = [UIImage imageNamed:@"默认头像"];
+        _userNameLabel.text = @"未登录";
+    }
+    }
 
 /*
 #pragma mark - Navigation
@@ -48,23 +58,29 @@
 */
 //细胞有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _myInfoArr.count;
-    //return _myInfoArr.count;
+    return 2;
+   
 }
 
 //每组多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return 3;
 }
 //细胞长什么样
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MyInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myInfoCell" forIndexPath:indexPath];
+    if(indexPath.section == 0){
     //根据行号拿到数组中对应的数据
-    NSDictionary *dict = _myInfoArr[indexPath.section];
+    NSDictionary *dict = _myInfoArr[indexPath.row];
     cell.leftIcon.image = [UIImage imageNamed:dict[@"leftIcon"]];
     cell.titleLabel.text = dict[@"title"];
     return cell;
-
+    }else{
+        NSDictionary *dict = _myInfoArr[indexPath.row + 3];
+        cell.leftIcon.image = [UIImage imageNamed:dict[@"leftIcon"]];
+        cell.titleLabel.text = dict[@"title"];
+      return cell;
+    }
 }
 //设置细胞高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

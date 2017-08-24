@@ -56,6 +56,7 @@
 		EEA0C0E61F4D3EEF000BA9F7 /* Myinfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA0C0E01F4D3EEF000BA9F7 /* Myinfo.storyboard */; };
 		EEA0C0E81F4D3EF5000BA9F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEA0C0E71F4D3EF5000BA9F7 /* Assets.xcassets */; };
 		EEA0C0F01F4DA291000BA9F7 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0C0EF1F4DA291000BA9F7 /* MyInfoTableViewCell.m */; };
+		EEBA13E21F4EFC42002C265B /* RegeditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBA13E11F4EFC42002C265B /* RegeditViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,8 @@
 		EEA0C0E71F4D3EF5000BA9F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = GetHotels/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		EEA0C0EE1F4DA291000BA9F7 /* MyInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoTableViewCell.h; sourceTree = "<group>"; };
 		EEA0C0EF1F4DA291000BA9F7 /* MyInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoTableViewCell.m; sourceTree = "<group>"; };
+		EEBA13E01F4EFC42002C265B /* RegeditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegeditViewController.h; sourceTree = "<group>"; };
+		EEBA13E11F4EFC42002C265B /* RegeditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegeditViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +264,8 @@
 				845A531A1F4B0E950006D53C /* MyInfoViewController.m */,
 				847E01F41F4DAB0F00F12E56 /* loginViewController.h */,
 				847E01F51F4DAB0F00F12E56 /* loginViewController.m */,
+				EEBA13E01F4EFC42002C265B /* RegeditViewController.h */,
+				EEBA13E11F4EFC42002C265B /* RegeditViewController.m */,
 			);
 			name = MyInfo;
 			sourceTree = "<group>";
@@ -672,6 +677,7 @@
 				845A538F1F4B12660006D53C /* DataSigner.m in Sources */,
 				845A53A41F4B127D0006D53C /* BasicEncodingRules.m in Sources */,
 				845A530E1F4B0D120006D53C /* Order.m in Sources */,
+				EEBA13E21F4EFC42002C265B /* RegeditViewController.m in Sources */,
 				845A539E1F4B12660006D53C /* StorageMgr.m in Sources */,
 				845A53941F4B12660006D53C /* RSADataSigner.m in Sources */,
 				845A53991F4B12660006D53C /* NSData+Base64.m in Sources */,

@@ -15,4 +15,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "StorageMgr.h"
+#import "Utilities.h"
+#import "Constants.h"
+#import "RequestAPI.h"
+#import "ErrorHandler.h"
+#import "NSString+Crypt.h"
 #endif /* PrefixHeader_pch */
