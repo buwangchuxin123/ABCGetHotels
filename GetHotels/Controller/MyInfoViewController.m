@@ -8,6 +8,7 @@
 
 #import "MyInfoViewController.h"
 #import "MyInfoTableViewCell.h"
+#import "UserModel.h"
 @interface MyInfoViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
@@ -39,9 +40,17 @@
         //已登录
         _loginBtn.hidden = YES;
         _userNameLabel.hidden = NO;
+        _levelLabel.hidden = NO;
+        _headImage.image = [UIImage imageNamed:@"icon"];
+        //用一个model承接存在单例化全局变量中的Model
+        UserModel *user = [[StorageMgr singletonStorageMgr] objectForKey:@"UserInfo"];
+        
+        _userNameLabel.text = user.nick_name;
+        
     }else{
         _loginBtn.hidden = NO;
         _userNameLabel.hidden = YES;
+        _levelLabel.hidden = YES;
         _headImage.image = [UIImage imageNamed:@"默认头像"];
         _userNameLabel.text = @"未登录";
     }

@@ -8,12 +8,13 @@
 
 #import "RegeditViewController.h"
 
-@interface RegeditViewController ()
+@interface RegeditViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPwdTextField;
 - (IBAction)regeditBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 //@property (strong, nonatomic) CLLocationManager *locMgr;
+@property (weak, nonatomic) IBOutlet UIButton *regeditBtn;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 @end
 
@@ -23,6 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self naviConfig];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,10 +69,18 @@
     _avi = [Utilities getCoverOnView:self.view];
     NSDictionary *para = @{@"tel":_phoneTextField.text,@"pwd":_passwordTextField.text};
     NSLog(@"参数:%@",para);
-    [RequestAPI requestURL:@"/register" withParameters:para andHeader:nil byMethod:kPost andSerializer:kJson success:^(id responseObject) {
+    [RequestAPI requestURL:@"/register" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
-        NSLog(@"%@",@"注册成功");
-        NSLog(@"responseObject:%@", responseObject);
+        NSLog(@"%@",responseObject);
+        if ([responseObject[@"result"] integerValue] ==1) {
+            NSLog(@"responseObject:%@", responseObject);
+            [Utilities popUpAlertViewWithMsg:@"恭喜你注册成功" andTitle:nil onView:self];
+            [self performSegueWithIdentifier:@"RegeditToLogin" sender:self];
+        } else{
+            [_avi stopAnimating];
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject [@"result"]integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:@"提示" onView:self];
+        }
         
     } failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
@@ -80,6 +90,7 @@
 
 }
 - (IBAction)regeditBtn:(UIButton *)sender forEvent:(UIEvent *)event {
+    
     if(_phoneTextField.text.length == 0){
         [Utilities popUpAlertViewWithMsg:@"请输入您的手机号" andTitle:nil onView:self];
         return;
@@ -105,11 +116,12 @@
     }
     if(![_passwordTextField.text isEqualToString:_confirmPwdTextField.text]){
         [Utilities popUpAlertViewWithMsg:@"两次密码不一致，请重新输入" andTitle:nil onView:self];
+        
         return;
         
     }
-
-}
+    [self networkRequest];
+       }
 //键盘收回
 - (void) touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     //让根视图结束编辑状态达到收起键盘的目的

@@ -48,6 +48,7 @@
 		846C07571F4A993D0048ED0D /* GetHotelsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C07561F4A993D0048ED0D /* GetHotelsTests.m */; };
 		846C07621F4A993D0048ED0D /* GetHotelsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C07611F4A993D0048ED0D /* GetHotelsUITests.m */; };
 		847E01F61F4DAB0F00F12E56 /* loginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847E01F51F4DAB0F00F12E56 /* loginViewController.m */; };
+		EE93EE001F503D0500B56183 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EE93EDFF1F503D0500B56183 /* UserModel.m */; };
 		EEA0C0D61F4D3D99000BA9F7 /* GetHotels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EEA0C0D41F4D3D99000BA9F7 /* GetHotels.xcdatamodeld */; };
 		EEA0C0E21F4D3EEF000BA9F7 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA0C0D81F4D3EEF000BA9F7 /* Flight.storyboard */; };
 		EEA0C0E31F4D3EEF000BA9F7 /* Hotels.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA0C0DA1F4D3EEF000BA9F7 /* Hotels.storyboard */; };
@@ -159,6 +160,8 @@
 		847E01F41F4DAB0F00F12E56 /* loginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginViewController.h; sourceTree = "<group>"; };
 		847E01F51F4DAB0F00F12E56 /* loginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginViewController.m; sourceTree = "<group>"; };
 		84D89D0D1F4BBC2C00A4FE15 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		EE93EDFE1F503D0500B56183 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		EE93EDFF1F503D0500B56183 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		EEA0C0D51F4D3D99000BA9F7 /* GetHotels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GetHotels.xcdatamodel; sourceTree = "<group>"; };
 		EEA0C0D91F4D3EEF000BA9F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Flight.storyboard; sourceTree = SOURCE_ROOT; };
 		EEA0C0DB1F4D3EEF000BA9F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Hotels.storyboard; sourceTree = SOURCE_ROOT; };
@@ -213,6 +216,8 @@
 				EEA0C0D41F4D3D99000BA9F7 /* GetHotels.xcdatamodeld */,
 				845A530C1F4B0D120006D53C /* Order.h */,
 				845A530D1F4B0D120006D53C /* Order.m */,
+				EE93EDFE1F503D0500B56183 /* UserModel.h */,
+				EE93EDFF1F503D0500B56183 /* UserModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				845A539D1F4B12660006D53C /* RequestAPI.m in Sources */,
 				845A53951F4B12660006D53C /* RSADataVerifier.m in Sources */,
 				845A53971F4B12660006D53C /* ErrorHandler.m in Sources */,
+				EE93EE001F503D0500B56183 /* UserModel.m in Sources */,
 				845A539C1F4B12660006D53C /* NSString+Crypt.m in Sources */,
 				845A53901F4B12660006D53C /* DataVerifier.m in Sources */,
 				845A53151F4B0E2F0006D53C /* HotelsViewController.m in Sources */,

@@ -7,13 +7,14 @@
 //
 
 #import "loginViewController.h"
-
-@interface loginViewController ()
+#import "UserModel.h"
+@interface loginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 - (IBAction)loginBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
-@property (weak, nonatomic) IBOutlet UIButton *regeditBtn;
+
+
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
 @end
 
@@ -23,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self naviConfig];
-   
+    [self uiLayout];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,8 +63,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)uiLayout{
-
-
+    if (![[Utilities getUserDefaults:@"nick_name"]isKindOfClass:[NSNull class]]) {
+        if ([Utilities getUserDefaults:@"nick_name"]!=nil) {
+            //将它显示在用户名输入框
+            _phoneTextField.text = [Utilities getUserDefaults:@"nick_name"];
+        }
+    }
 }
 
 
@@ -96,15 +101,39 @@
 -(void)networkRequest{
     _avi = [Utilities getCoverOnView:self.view];
     NSDictionary *para = @{@"tel":_phoneTextField.text,@"pwd":_passwordTextField.text};
-    NSLog(@"参数:%@",para);
-    [RequestAPI requestURL:@"/login" withParameters:para andHeader:nil byMethod:kPost andSerializer:kJson success:^(id responseObject) {
-        [_avi stopAnimating];
+ 
+    [RequestAPI requestURL:@"/login" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+         [_avi stopAnimating];
+        NSLog(@"LOGIN=%@",responseObject);
+        if([responseObject[@"result"] integerValue]==1){
+            NSDictionary *result = responseObject[@"content"];
+            UserModel *user = [[UserModel alloc]initWithDictionary:result];
+            //将登录获取到用户信息打包存储到单例化全局变量中
+            [[StorageMgr singletonStorageMgr]addKey:@"UserInfo" andValue:user];
+            //单独将用户的ID也存储进单例化全局变量来作为用户是否已经登录的判断依据，同时也方便其他所有页面跟快捷的是用用户ID这个参数
+            [[StorageMgr singletonStorageMgr]addKey:@"MemberId" andValue:user.memberId];
+            //如果键盘还打开着让它收起
+            [self.view endEditing:YES];
+            //清空密码输入框的内容
+            _passwordTextField.text = @"";
+            //记忆用户名
+            [Utilities setUserDefaults:@"Username" content:_passwordTextField.text];
+            //用Model的方式返回上一页
+            [self dismissViewControllerAnimated:YES completion:nil];
+
+        }else{
+            NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"result"]integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:@"提示" onView:self];
+        }
+
+            
     } failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
         //业务逻辑失败的情况下
         [Utilities popUpAlertViewWithMsg:@"网络错误" andTitle:nil onView:self];
 }];
 }
+     
 //按键盘上的return键收起键盘
 -(BOOL)textfieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
