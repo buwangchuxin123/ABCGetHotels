@@ -25,7 +25,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self naviConfig];
+    [self uilayout];
+    [self dataInitialize];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

@@ -37,7 +37,6 @@
 		845A53A71F4B12B00006D53C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 845A52FC1F4B09160006D53C /* libz.tbd */; };
 		845A53A81F4B13780006D53C /* AlipaySDK.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 845A52FE1F4B0A080006D53C /* AlipaySDK.bundle */; };
 		845A53A91F4B13780006D53C /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845A52FF1F4B0A080006D53C /* AlipaySDK.framework */; };
-		845A53AA1F4B13780006D53C /* Cities.plist in Frameworks */ = {isa = PBXBuildFile; fileRef = 845A53001F4B0A080006D53C /* Cities.plist */; };
 		845A53AB1F4B13780006D53C /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 845A53011F4B0A080006D53C /* libcrypto.a */; };
 		845A53AC1F4B13780006D53C /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 845A53021F4B0A080006D53C /* libssl.a */; };
 		845A53AD1F4B13780006D53C /* Openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845A53031F4B0A080006D53C /* Openssl.framework */; };
@@ -51,6 +50,7 @@
 		84955C771F51310200BEF36D /* CityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84955C761F51310200BEF36D /* CityTableViewController.m */; };
 		84955C7B1F5134FA00BEF36D /* HotelsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84955C7A1F5134FA00BEF36D /* HotelsTableViewCell.m */; };
 		84955C7D1F5137DF00BEF36D /* Cities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84955C7C1F5137DF00BEF36D /* Cities.plist */; };
+		84955C801F514C1D00BEF36D /* HotelsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84955C7F1F514C1D00BEF36D /* HotelsModel.m */; };
 		EE93EE001F503D0500B56183 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EE93EDFF1F503D0500B56183 /* UserModel.m */; };
 		EEA0C0D61F4D3D99000BA9F7 /* GetHotels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EEA0C0D41F4D3D99000BA9F7 /* GetHotels.xcdatamodeld */; };
 		EEA0C0E21F4D3EEF000BA9F7 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA0C0D81F4D3EEF000BA9F7 /* Flight.storyboard */; };
@@ -167,6 +167,8 @@
 		84955C791F5134FA00BEF36D /* HotelsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelsTableViewCell.h; sourceTree = "<group>"; };
 		84955C7A1F5134FA00BEF36D /* HotelsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelsTableViewCell.m; sourceTree = "<group>"; };
 		84955C7C1F5137DF00BEF36D /* Cities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Cities.plist; sourceTree = "<group>"; };
+		84955C7E1F514C1D00BEF36D /* HotelsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelsModel.h; sourceTree = "<group>"; };
+		84955C7F1F514C1D00BEF36D /* HotelsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelsModel.m; sourceTree = "<group>"; };
 		84D89D0D1F4BBC2C00A4FE15 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		EE93EDFE1F503D0500B56183 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		EE93EDFF1F503D0500B56183 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
@@ -191,7 +193,6 @@
 				845A53AF1F4B13970006D53C /* libPods-GetHotels.a in Frameworks */,
 				845A53A81F4B13780006D53C /* AlipaySDK.bundle in Frameworks */,
 				845A53A91F4B13780006D53C /* AlipaySDK.framework in Frameworks */,
-				845A53AA1F4B13780006D53C /* Cities.plist in Frameworks */,
 				845A53AB1F4B13780006D53C /* libcrypto.a in Frameworks */,
 				845A53AC1F4B13780006D53C /* libssl.a in Frameworks */,
 				845A53AD1F4B13780006D53C /* Openssl.framework in Frameworks */,
@@ -226,6 +227,8 @@
 				845A530D1F4B0D120006D53C /* Order.m */,
 				EE93EDFE1F503D0500B56183 /* UserModel.h */,
 				EE93EDFF1F503D0500B56183 /* UserModel.m */,
+				84955C7E1F514C1D00BEF36D /* HotelsModel.h */,
+				84955C7F1F514C1D00BEF36D /* HotelsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				845A53901F4B12660006D53C /* DataVerifier.m in Sources */,
 				845A53151F4B0E2F0006D53C /* HotelsViewController.m in Sources */,
 				845A53961F4B12660006D53C /* AppAPIClient.m in Sources */,
+				84955C801F514C1D00BEF36D /* HotelsModel.m in Sources */,
 				845A538F1F4B12660006D53C /* DataSigner.m in Sources */,
 				845A53A41F4B127D0006D53C /* BasicEncodingRules.m in Sources */,
 				845A530E1F4B0D120006D53C /* Order.m in Sources */,
