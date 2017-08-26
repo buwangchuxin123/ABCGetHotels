@@ -14,10 +14,10 @@
         <!--Hotels-->
         <scene sceneID="yfT-EG-8qj">
             <objects>
-                <viewControllerPlaceholder storyboardName="Hotels" id="YlP-mA-NYW" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xlt-BW-cPG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="Hotels" storyboardName="Hotels" id="YlP-mA-NYW" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="wOc-wW-3p9"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xlt-BW-cPG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1286" y="-869"/>
         </scene>
