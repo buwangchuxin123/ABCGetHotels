@@ -36,6 +36,10 @@
 @property (strong,nonatomic)NSString *wxlongitude;
 @property (strong,nonatomic)NSString *wxlatitude;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
+@property (strong, nonatomic) NSMutableArray *firstResArr;
+
+@property (weak, nonatomic) IBOutlet UILabel *price;
+
 @end
 
 @implementation HotelsViewController
@@ -54,7 +58,9 @@
     _wxlongitude = @"";
     _wxlatitude = @"";
     [self naviConfig];
+    [self locationConfig];
     [self netRequest];
+    NSLog(@"数组长度为：%lu",(unsigned long)_firstResArr.count);
     // Do any additional setup after loading the view.
 }
 
@@ -66,7 +72,9 @@
 //每次将要来到这个页面的时候
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self locationConfig];
     [self locationStart];
+    [self dataInitialize];
     
 }
 //每次将要离开这个页面的时候
@@ -132,9 +140,12 @@
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){
-           // NSArray *result = responseObject[@"content"][@"hotel"][@"list"];
-            //HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:result];
-            
+           NSArray *result = responseObject[@"content"][@"hotel"][@"list"];
+            for (NSDictionary *dict in result) {
+              HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
+              NSLog(@"结果：%@",resultModel);
+              [_firstResArr addObject:resultModel];
+            }
            // NSArray
             
             
@@ -158,13 +169,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return _firstResArr.count;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HotelsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelsCell" forIndexPath:indexPath];
-    cell.HotelsName.text = @"无锡希尔顿酒店";
-    cell.address.text = @"上海";
+    HotelsModel *hotelsModel =  _firstResArr[indexPath.row];
+    cell.HotelsName.text = hotelsModel.hotel_name;
+    
+    cell.address.text = hotelsModel.hotel_address;
+    cell.price.text = hotelsModel.price;
     cell.distance.text = @"距离我100m";
     
     
@@ -212,6 +227,21 @@
     //打开定位服务的开关（开始定位）
     [_locMgr startUpdatingLocation];
 }
+//定位成功时
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation{
+    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
+    NSLog(@"经度:%f",newLocation.coordinate.longitude);
+    _location = newLocation;
+    //用flag思想判断是否可以去根据定位拿到城市
+    if (firstVisit) {
+        firstVisit = !firstVisit;
+        //根据定位拿到城市
+        [self getRegeoViaCoordinate];
+    }
+    
+}
 - (void) getRegeoViaCoordinate {
     //duration表示从now开始过3个SEC
     dispatch_time_t duration = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
@@ -240,7 +270,7 @@
                         [Utilities removeUserDefaults:@"UserCity"];
                         [Utilities setUserDefaults:@"UserCity" content:cityStr];
                         //重新进行网络请求
-                      //  [self networkRequest];
+                        //  [self networkRequest];
                         
                     }];
                     UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -256,6 +286,8 @@
         [_locMgr stopUpdatingLocation];
     });
 }
+
+
 - (void) checkCityState:(NSNotification *)note {
     NSString *cityStr = note.object;
     if (![cityStr isEqualToString:_cityBtn.titleLabel.text]) {

@@ -269,8 +269,8 @@
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation{
-    //NSLog(@"纬度:%f",newLocation.coordinate.latitude);
-    //NSLog(@"经度:%f",newLocation.coordinate.longitude);
+    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
+    NSLog(@"经度:%f",newLocation.coordinate.longitude);
     _location = newLocation;
     //用flag思想判断是否可以去根据定位拿到城市
     if (firstVisit) {
