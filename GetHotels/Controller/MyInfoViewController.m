@@ -44,7 +44,6 @@
         _headImage.image = [UIImage imageNamed:@"icon"];
         //用一个model承接存在单例化全局变量中的Model
         UserModel *user = [[StorageMgr singletonStorageMgr] objectForKey:@"UserInfo"];
-        
         _userNameLabel.text = user.nick_name;
         
     }else{
@@ -55,12 +54,47 @@
         _userNameLabel.text = @"未登录";
     }
     }
+//按住细胞以后（取消选择）
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        if ([Utilities loginCheck]) {
+            switch (indexPath.row) {
+                case 0:{
+                    [self performSegueWithIdentifier:@"myInfoToHotels" sender:self];
+                    break;
+                }
+                    
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                default:
+                    break;
+            }
+        }else{
+//            UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Myinfo" byIdentity:@"SignNavi"];
+//            [self presentViewController:signNavi animated:YES completion:nil];
+        }
+    }
+}
 
 /*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {· 111111
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
@@ -98,5 +132,5 @@
 
 
 - (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event {
-}
+       }
 @end

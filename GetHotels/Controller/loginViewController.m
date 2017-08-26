@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *shadowImageView;
 - (IBAction)loginBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 
@@ -25,6 +26,8 @@
     // Do any additional setup after loading the view.
     [self naviConfig];
     [self uiLayout];
+    _loginBtn.enabled = NO;
+    [self setShadow];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,11 +44,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)setShadow {
+    
+    _shadowImageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+    _shadowImageView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+    _shadowImageView.layer.shadowOpacity = 0.7f;//阴影透明度，默认0
+    _shadowImageView.layer.shadowRadius = 4.f;//阴影半径，默认3
+}
+
 //这个方法做导航条的基本属性设置
 -(void)naviConfig{
     self.navigationItem.title = @"会员登录";
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor =[UIColor blueColor];
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(23, 124, 236);
     //设置导航栏标题颜色
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航条是否被隐藏
@@ -68,6 +79,20 @@
             //将它显示在用户名输入框
             _phoneTextField.text = [Utilities getUserDefaults:@"nick_name"];
         }
+    }
+    //添加事件监听当输入框的内容改变时调用textChange:方法
+    [_phoneTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
+    [_passwordTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
+}
+//输入框内容改变的监听事件
+- (void)textChange: (UITextField *)textField{
+    //当文本框中的内容改变时判断内容长度是否为0，是：禁用按钮   否：启用按钮
+    if (_phoneTextField.text.length != 0 && _passwordTextField.text.length != 0) {
+        _loginBtn.enabled = YES;
+        _loginBtn.backgroundColor = UIColorFromRGB(99, 163, 210);
+    }else{
+        _loginBtn.enabled = NO;
+        _loginBtn.backgroundColor = UIColorFromRGB(200, 200, 200);
     }
 }
 
@@ -96,7 +121,6 @@
     }
     //无输入异常，开始正式登录接口
     [self networkRequest];
-    
 }
 -(void)networkRequest{
     _avi = [Utilities getCoverOnView:self.view];
@@ -118,9 +142,7 @@
             _passwordTextField.text = @"";
             //记忆用户名
             [Utilities setUserDefaults:@"Username" content:_passwordTextField.text];
-            //用Model的方式返回上一页
-            [self dismissViewControllerAnimated:YES completion:nil];
-
+            [self performSegueWithIdentifier:@"loginToMyinfo" sender:self];
         }else{
             NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"result"]integerValue]];
             [Utilities popUpAlertViewWithMsg:errorMsg andTitle:@"提示" onView:self];
