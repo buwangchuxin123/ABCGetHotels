@@ -132,8 +132,8 @@
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){
-            NSArray *result = responseObject[@"content"][@"hotel"][@"list"];
-            HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:result];
+           // NSArray *result = responseObject[@"content"][@"hotel"][@"list"];
+            //HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:result];
             
            // NSArray
             
