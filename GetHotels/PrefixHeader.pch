@@ -20,4 +20,5 @@
 #import "RequestAPI.h"
 #import "ErrorHandler.h"
 #import "NSString+Crypt.h"
+#import "ZLImageViewDisplayView.h"//轮播图片第三方
 #endif /* PrefixHeader_pch */
