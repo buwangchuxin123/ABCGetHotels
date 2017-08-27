@@ -21,4 +21,5 @@
 #import "ErrorHandler.h"
 #import "NSString+Crypt.h"
 #import "ZLImageViewDisplayView.h"//轮播图片第三方
+#import "UIImageView+WebCache.h"//图片异步下载
 #endif /* PrefixHeader_pch */
