@@ -39,6 +39,7 @@
 @property (strong, nonatomic) NSMutableArray *firstResArr;
 @property (weak, nonatomic) IBOutlet UITableView *hotelsTableView;
 
+@property (weak, nonatomic) IBOutlet UIView *CycleAdView;
 
 @end
 
@@ -49,7 +50,7 @@
   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     _firstResArr = [NSMutableArray new];
     pageNum = 1;
-    pageSize = 1;
+    pageSize = 10;
     startId = 1;
     priceId = 1;
     _inTime = @"2017-08-25";
@@ -107,16 +108,16 @@
     //获取要显示的位置
     CGRect screenFrame = [[UIScreen mainScreen] bounds];
     
-    CGRect frame = CGRectMake(0,110, UI_SCREEN_W, 150);
+    CGRect frame = CGRectMake(0,0, UI_SCREEN_W, 150);
     //@"001.jpg"
-    NSArray *imageArray = @[@"酒店-1", @"酒店-1", @"酒店-1", @"酒店-1", @"http://pic1.nipic.com/2008-12-25/2008122510134038_2.jpg"];
+    NSArray *imageArray = @[@"酒店-1", @"酒店-1", @"酒店-1", @"酒店-1"];// @"http://pic1.nipic.com/2008-12-25/2008122510134038_2.jpg"];
     
     //初始化控件
     ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
     imageViewDisplay.imageViewArray = imageArray;
     imageViewDisplay.scrollInterval = 3;
     imageViewDisplay.animationInterVale = 0.6;
-    [self.view addSubview:imageViewDisplay];
+    [_CycleAdView addSubview:imageViewDisplay];
     
 //    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
 //        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
@@ -191,6 +192,11 @@
 }
 
 #pragma mark - tableView
+//设置细胞高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 80.f;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 1;
@@ -202,7 +208,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HotelsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelsCell" forIndexPath:indexPath];
+    HotelsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
     HotelsModel *hotelsModel =  _firstResArr[indexPath.row];
     cell.HotelsName.text = hotelsModel.hotel_name;
     
