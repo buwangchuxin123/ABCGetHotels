@@ -11,7 +11,7 @@
 @interface UserModel : NSObject
 @property(nonatomic) NSInteger gender;
 @property(nonatomic)NSInteger tel;
-@property (strong, nonatomic)NSString *memberId;
+@property (strong, nonatomic)NSString *MemberId;
 @property(strong,nonatomic)NSString * nick_name;
 -(id)initWithDictionary:(NSDictionary *)dict;
 @end

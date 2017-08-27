@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UITableView *myInfoTableView;
-- (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)LoginBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic)NSArray *myInfoArr;
 @end
 
@@ -115,46 +115,32 @@
     }
     return 1.f;
 }
-/*
+
  //按住细胞以后（取消选择）
  - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
  [tableView deselectRowAtIndexPath:indexPath animated:YES];
- if (indexPath.section == 0) {
- if ([Utilities loginCheck]) {
- switch (indexPath.row) {
- case 0:{
- [self performSegueWithIdentifier:@"myInfoToHotels" sender:self];
+     if (indexPath.section == 0) {
+         if ([Utilities loginCheck]) {
+        switch (indexPath.row) {
+            case 0:{
+                [self performSegueWithIdentifier:@"myInfoToHotels" sender:self];
+            }
+                break;
+                   break;
+            default:
+                break;
+ }
+ }
+ else{
+    UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Myinfo" byIdentity:@"SignNavi"];
+        [self presentViewController:signNavi animated:YES completion:nil];
+        }
+ }
+ }
  
- }
- break;
- //
- //                case 1:
- //
- //                    break;
- //                case 2:
- //
- //                    break;
- //                case 3:
- //
- //                    break;
- //                case 4:
- //
- //                    break;
- //                case 5:
- //
- //                    break;
- default:
- break;
- }
- }
- //else{
- //            //            UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Myinfo" byIdentity:@"SignNavi"];
- //            //            [self presentViewController:signNavi animated:YES completion:nil];
- //        }
- }
- }
- */
 
-- (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event {
+- (IBAction)LoginBtn:(UIButton *)sender forEvent:(UIEvent *)event {
+    UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Myinfo" byIdentity:@"SignNavi"];
+    [self presentViewController:signNavi animated:YES completion:nil];
        }
 @end

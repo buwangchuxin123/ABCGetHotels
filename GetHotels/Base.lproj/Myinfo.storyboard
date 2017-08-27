@@ -57,8 +57,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="loginBtn:forEvent:" destination="6jb-ze-Ny1" eventType="touchUpInside" id="ffx-9y-uTT"/>
-                                            <segue destination="bz3-Ly-Yii" kind="show" id="JrU-1V-Jex"/>
+                                            <action selector="LoginBtn:forEvent:" destination="6jb-ze-Ny1" eventType="touchUpInside" id="gtd-Qd-gLJ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -114,7 +113,7 @@
                                         <connections>
                                             <outlet property="leftIcon" destination="V39-LU-McU" id="ORZ-Ve-cnG"/>
                                             <outlet property="titleLabel" destination="xom-j6-Oay" id="lMc-ch-T3P"/>
-                                            <segue destination="hNz-6w-Ahp" kind="show" id="YcI-OJ-20u"/>
+                                            <segue destination="hNz-6w-Ahp" kind="show" identifier="myInfoToHotels" id="YcI-OJ-20u"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -282,7 +281,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginBtnAction:forEvent:" destination="lFc-Aa-f08" eventType="touchUpInside" id="gAL-N3-rQD"/>
-                                    <segue destination="6jb-ze-Ny1" kind="show" identifier="loginToMyinfo" id="Hir-dF-7wc"/>
+                                    <segue destination="6jb-ze-Ny1" kind="show" identifier="loginToMyinfo" id="dQ1-5s-8Q9"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tj9-aZ-sx2">
@@ -566,39 +565,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="naM-bR-ogb">
-                                <rect key="frame" x="0.0" y="64" width="375" height="40"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全部订单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqn-a5-FmK">
-                                        <rect key="frame" x="15" y="12" width="53.5" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可使用" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9d-5y-yZ6">
-                                        <rect key="frame" x="168" y="12" width="40" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已过期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vda-Ku-cEw">
-                                        <rect key="frame" x="320" y="12" width="40" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.87843137250000003" green="0.8862745098" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Vda-Ku-cEw" secondAttribute="trailing" constant="15" id="HCT-pd-WQk"/>
-                                    <constraint firstItem="Vda-Ku-cEw" firstAttribute="centerY" secondItem="naM-bR-ogb" secondAttribute="centerY" id="LsM-uv-ogU"/>
-                                    <constraint firstAttribute="height" constant="40" id="QHy-1e-982"/>
-                                    <constraint firstItem="B9d-5y-yZ6" firstAttribute="centerX" secondItem="naM-bR-ogb" secondAttribute="centerX" id="ecK-7L-zT1"/>
-                                    <constraint firstItem="B9d-5y-yZ6" firstAttribute="centerY" secondItem="naM-bR-ogb" secondAttribute="centerY" id="f90-L9-suQ"/>
-                                    <constraint firstItem="aqn-a5-FmK" firstAttribute="centerY" secondItem="naM-bR-ogb" secondAttribute="centerY" id="ffx-zT-7oo"/>
-                                    <constraint firstItem="aqn-a5-FmK" firstAttribute="leading" secondItem="naM-bR-ogb" secondAttribute="leading" constant="15" id="oHy-AU-tXA"/>
-                                </constraints>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cM1-gR-hWA">
                                 <rect key="frame" x="0.0" y="104" width="375" height="563"/>
                                 <subviews>
@@ -779,6 +745,7 @@
                                     <constraint firstAttribute="bottom" secondItem="GnZ-Pt-gyY" secondAttribute="bottom" id="8s5-0d-c5y"/>
                                     <constraint firstItem="Pqc-kA-Wm3" firstAttribute="leading" secondItem="cM1-gR-hWA" secondAttribute="leading" id="A1y-x4-yXj"/>
                                     <constraint firstAttribute="bottom" secondItem="Pqc-kA-Wm3" secondAttribute="bottom" id="CIl-Ju-gCF"/>
+                                    <constraint firstAttribute="height" constant="563" id="CmY-UW-HQe"/>
                                     <constraint firstItem="Pqc-kA-Wm3" firstAttribute="centerY" secondItem="cM1-gR-hWA" secondAttribute="centerY" id="I1N-Xm-heo"/>
                                     <constraint firstItem="akV-Vu-oA0" firstAttribute="leading" secondItem="Pqc-kA-Wm3" secondAttribute="trailing" id="JBl-o5-bzP"/>
                                     <constraint firstItem="akV-Vu-oA0" firstAttribute="width" secondItem="Pqc-kA-Wm3" secondAttribute="width" id="Kb4-oZ-TJ9"/>
@@ -794,17 +761,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cM1-gR-hWA" firstAttribute="top" secondItem="naM-bR-ogb" secondAttribute="bottom" id="4Zz-vZ-eko"/>
                             <constraint firstItem="cM1-gR-hWA" firstAttribute="leading" secondItem="CrY-J3-F8V" secondAttribute="leading" id="5t3-Gl-AQu"/>
-                            <constraint firstAttribute="trailing" secondItem="naM-bR-ogb" secondAttribute="trailing" id="Hw8-zX-NRp"/>
                             <constraint firstItem="n3A-q9-Zrl" firstAttribute="top" secondItem="cM1-gR-hWA" secondAttribute="bottom" id="JmV-Yb-TAc"/>
-                            <constraint firstItem="naM-bR-ogb" firstAttribute="top" secondItem="diw-hb-Ukx" secondAttribute="bottom" id="V5Y-3N-Lxr"/>
                             <constraint firstItem="Pqc-kA-Wm3" firstAttribute="width" secondItem="CrY-J3-F8V" secondAttribute="width" id="pGp-vS-ha3"/>
-                            <constraint firstItem="naM-bR-ogb" firstAttribute="leading" secondItem="CrY-J3-F8V" secondAttribute="leading" id="qgN-2y-u1J"/>
                             <constraint firstAttribute="trailing" secondItem="cM1-gR-hWA" secondAttribute="trailing" id="wr3-dS-sIb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="我的酒店" id="KfL-Wn-B4l"/>
+                    <connections>
+                        <outlet property="ScrollView" destination="cM1-gR-hWA" id="GXu-aK-8Me"/>
+                        <outlet property="allOrderTableView" destination="Pqc-kA-Wm3" id="2Z9-iP-nKw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYG-gy-Fh6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -813,7 +780,7 @@
         <!--Navigation Controller-->
         <scene sceneID="wfl-jz-k80">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bz3-Ly-Yii" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SignNavi" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bz3-Ly-Yii" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xLi-24-Jxn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -878,6 +845,6 @@
         <image name="默认头像" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VVh-BE-EyD"/>
+        <segue reference="r0T-wi-cXV"/>
     </inferredMetricsTieBreakers>
 </document>
