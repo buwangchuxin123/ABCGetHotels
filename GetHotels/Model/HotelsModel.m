@@ -16,6 +16,7 @@
          self.hotel_img =  [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@""];
          self.hotel_address =  [Utilities nullAndNilCheck:dict[@"hotel_address"] replaceBy:@""];
          self.price =  [Utilities nullAndNilCheck:dict[@"price"] replaceBy:@""];
+         self.distance = [Utilities nullAndNilCheck:dict[@"distance"] replaceBy:@"10000000000"];
     }
     return self;
 }

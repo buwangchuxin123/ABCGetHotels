@@ -37,8 +37,8 @@
 @property (strong,nonatomic)NSString *wxlatitude;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 @property (strong, nonatomic) NSMutableArray *firstResArr;
+@property (weak, nonatomic) IBOutlet UITableView *hotelsTableView;
 
-@property (weak, nonatomic) IBOutlet UILabel *price;
 
 @end
 
@@ -47,20 +47,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    _firstResArr = [NSMutableArray new];
     pageNum = 1;
-    pageSize = 1 ;
+    pageSize = 1;
     startId = 1;
     priceId = 1;
     _inTime = @"2017-08-25";
     _outTime = @"2017-08-26";
     _sortingId = @"1";
     _city_name = @"无锡";
-    _wxlongitude = @"";
-    _wxlatitude = @"";
+    _wxlongitude = @"120.300000";
+    _wxlatitude = @"31.570000";
     [self naviConfig];
     [self locationConfig];
     [self netRequest];
     NSLog(@"数组长度为：%lu",(unsigned long)_firstResArr.count);
+    [self addZLImageViewDisPlayView];
     // Do any additional setup after loading the view.
 }
 
@@ -99,6 +101,29 @@
     //为导航条左上角创建一个按钮
     //    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
     //    self.navigationItem.leftBarButtonItem = left;
+}
+-(void) addZLImageViewDisPlayView{
+    
+    //获取要显示的位置
+    CGRect screenFrame = [[UIScreen mainScreen] bounds];
+    
+    CGRect frame = CGRectMake(0,110, UI_SCREEN_W, 150);
+    //@"001.jpg"
+    NSArray *imageArray = @[@"酒店-1", @"酒店-1", @"酒店-1", @"酒店-1", @"http://pic1.nipic.com/2008-12-25/2008122510134038_2.jpg"];
+    
+    //初始化控件
+    ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
+    imageViewDisplay.imageViewArray = imageArray;
+    imageViewDisplay.scrollInterval = 3;
+    imageViewDisplay.animationInterVale = 0.6;
+    [self.view addSubview:imageViewDisplay];
+    
+//    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
+//        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
+//        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alter show];
+//    }];
+    
 }
 
 
@@ -140,14 +165,17 @@
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){
-           NSArray *result = responseObject[@"content"][@"hotel"][@"list"];
+            NSDictionary *content = responseObject[@"content"];
+           NSArray *result = content[@"hotel"][@"list"];
             for (NSDictionary *dict in result) {
               HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-              NSLog(@"结果：%@",resultModel);
+              NSLog(@"结果：%@",resultModel.hotel_name);
+               NSLog(@"距离：%@",resultModel.distance);
+                 NSLog(@"图片地址：%@",resultModel.hotel_img);
               [_firstResArr addObject:resultModel];
             }
            // NSArray
-            
+            [_hotelsTableView reloadData];
             
         }else{
             //业务逻辑失败的情况下
@@ -179,9 +207,14 @@
     cell.HotelsName.text = hotelsModel.hotel_name;
     
     cell.address.text = hotelsModel.hotel_address;
-    cell.price.text = hotelsModel.price;
-    cell.distance.text = @"距离我100m";
-    
+    NSString *price = [NSString stringWithFormat:@"¥ %@",hotelsModel.price];
+    cell.price.text = price;
+    NSString *Str = hotelsModel.distance;
+    double Kilometer  = [Str doubleValue];
+    NSString *distance = [NSString stringWithFormat:@"距离我%.1f公里",(Kilometer/1000)];
+    cell.distance.text = distance;
+    NSURL *URL = [NSURL URLWithString:hotelsModel.hotel_img];
+    [cell.HotelsImg sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"酒店-1"]];
     
     return cell;
 }

@@ -278,6 +278,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="cityBtn" destination="0xV-L6-GGB" id="jjb-sV-jzh"/>
+                        <outlet property="hotelsTableView" destination="hGm-PE-8lP" id="sdG-CB-2q5"/>
                         <outlet property="temperature" destination="FwU-3g-NHY" id="Tuw-mG-8Qw"/>
                         <outlet property="weather" destination="ffB-Ci-po1" id="Pee-KB-htC"/>
                         <outlet property="weatherImg" destination="zEU-bz-Hq3" id="sas-kE-VHJ"/>
@@ -285,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPd-JC-m74" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-498" y="-1215"/>
+            <point key="canvasLocation" x="-660" y="-1260"/>
         </scene>
         <!--Detail-->
         <scene sceneID="Hsh-y1-oJ7">
