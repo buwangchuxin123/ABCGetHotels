@@ -10,7 +10,12 @@
 
 @interface HotelsModel : NSObject
 
-@property (strong,nonatomic)NSArray *hotelsArr;
+//@property (strong,nonatomic)NSArray  *hotelsArr;
 @property (strong,nonatomic)NSString *hotel_name;
+@property (strong,nonatomic)NSString *distance;
+@property (strong,nonatomic)NSString *hotel_img;
+@property (strong,nonatomic)NSString *price;
+@property (strong,nonatomic)NSString *hotel_address;
+//@property (strong,nonatomic)
 - (instancetype)initWithDict: (NSDictionary *)dict;
 @end
