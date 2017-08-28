@@ -38,7 +38,7 @@
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 @property (strong, nonatomic) NSMutableArray *firstResArr;
 @property (strong, nonatomic) NSMutableArray *AdImgarr;
-@property (strong, nonatomic) NSArray *AdImgarr1;
+@property (strong, nonatomic) NSMutableArray *AdImgarr1;
 @property (weak, nonatomic) IBOutlet UITableView *hotelsTableView;
 
 @property (weak, nonatomic) IBOutlet UIView *CycleAdView;
@@ -50,9 +50,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    _AdImgarr  =  [NSMutableArray new];
+    _AdImgarr  =   [NSMutableArray new];
     _firstResArr = [NSMutableArray new];
-    _AdImgarr1  = @[@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png",@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png",@"http://ac-tscmo0vq.clouddn.com/1cbe1d0ad3bae6214d59.jpg"];
+    _AdImgarr1  = [[NSMutableArray alloc]initWithObjects:@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png",@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png",@"http://ac-tscmo0vq.clouddn.com/1cbe1d0ad3bae6214d59.jpg",@"http://ac-tscmo0vq.clouddn.com/b3ca642f7a9297e907c7.jpg",@"http://ac-tscmo0vq.clouddn.com/5c1f5d0dd16e0888ecd0.jpg",nil];
     pageNum = 1;
     pageSize = 10;
     startId = 1;
@@ -64,10 +64,9 @@
     _wxlongitude = @"120.300000";
     _wxlatitude = @"31.570000";
     [self naviConfig];
-    [self locationConfig];
     [self netRequest];
-    [self addZLImageViewDisPlayView:_AdImgarr];
-    //NSLog(@"数组里的是:%@",_AdImgarr[0]);
+    [self addZLImageViewDisPlayView:_AdImgarr1];
+   //NSLog(@"数组里的是:%@",_AdImgarr[2]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,7 +91,7 @@
 - (void)naviConfig{
      self.navigationItem.title = @"GetHotels";
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(23, 124, 236);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(20, 124, 236);
     //设置导航条标题颜色
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航条是否被隐藏
@@ -104,10 +103,20 @@
     self.navigationController.navigationBar.translucent = YES;
     
 }
+//键盘收回
+- (void) touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    //让根视图结束编辑状态达到收起键盘的目的
+    [self.view endEditing:YES];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];//重设初始响应器
+    return YES;
+}
+
 -(void) addZLImageViewDisPlayView:(NSArray *)arr{
     
     
-    CGRect frame = CGRectMake(0,0, UI_SCREEN_W, 150);
+    CGRect frame = CGRectMake(0,0, UI_SCREEN_W, 160);
     //初始化控件
     ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
     imageViewDisplay.imageViewArray = arr;
@@ -143,14 +152,17 @@
     
     firstVisit = YES;
     isLoding = NO;
-       // _arr = [NSMutableArray new];
-   
+//    _arr = [NSMutableArray new];
+//    //创建菊花膜
+//    _aIV = [Utilities getCoverOnView:self.view];
+  //  [self refreshPage];
     
 }
 
+
 - (void)netRequest{
     _avi = [Utilities getCoverOnView:self.view];
-    NSDictionary *para =  @{@"city_name":_city_name,@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"startId":@(startId),@"priceId":@(priceId),@"sortingId":_sortingId,@"inTime":_inTime,@"outTime":_outTime,@"wxlatitude":_wxlatitude,@"wxlongitude":_wxlongitude};
+    NSDictionary *para =  @{@"city_name":_city_name,@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"startId":@(startId),@"priceId":@(priceId),@"sortingId":_sortingId,@"inTime":_inTime,@"outTime":_outTime,@"wxlatitude":_wxlatitude ,@"wxlongitude":_wxlongitude};
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject:%@", responseObject);
         [_avi stopAnimating];
@@ -160,12 +172,14 @@
             NSArray *result = content[@"hotel"][@"list"];
             NSArray *Adarr  = content[@"advertising"];
             for (NSDictionary *dict in Adarr) {
-//               //  HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-//               //[_AdImgarr addObject:resultModel.AdImg];
-//               // NSLog(@"网址：%@",resultModel.AdImg);
-                [_AdImgarr addObject:dict[@"ad_img"]];
-                 NSLog(@"网址是：%@",dict[@"ad_img"]);
-//                 NSLog(@"数组里的是:%@",_AdImgarr[0]);
+              HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
+              [ self.AdImgarr addObject:resultModel.AdImg];
+                NSLog(@"网址：%@",resultModel.AdImg);
+                
+              //  [_AdImgarr addObject:dict[@"ad_img"]];
+               // _AdImgarr = dict[@"ad_img"];//copy;
+               // NSLog(@"网址是：%@",dict[@"ad_img"]);
+               
             }
             for (NSDictionary *dict in result) {
               HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
@@ -191,6 +205,77 @@
 }
 
 #pragma mark - tableView
+//设置组的头标题文字
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    return ;
+//}
+- (UIView*) tableView:(UITableView *)_tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, 30)];
+    headerView.backgroundColor = UIColorFromRGB(250, 250, 250);
+   
+    UIButton *btn1 =[[UIButton alloc] initWithFrame:CGRectMake(15,5,UI_SCREEN_W/4, 25)];
+     [btn1 setTitle:@"入住03-24"  forState:UIControlStateNormal];
+      btn1.titleLabel.font  = [UIFont systemFontOfSize: 12];
+      btn1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+      [btn1 setTitleColor:UIColorFromRGB(112, 128, 144) forState:UIControlStateNormal];
+      UIImageView *img1 = [[UIImageView alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4-15,15,5,5)];
+     img1.image = [UIImage imageNamed:@"menu_down"];
+    UIView *view1 = [[UIView alloc]initWithFrame:CGRectMake(UI_SCREEN_W/4,0,1, 30) ];
+    view1.backgroundColor = UIColorFromRGB(241, 241, 241);
+//    [btn1 addTarget:self action:@selector(onClick1:)
+//     forControlEvents:UIControlEventTouchUpInside];
+    [headerView  addSubview:view1];
+    [headerView  addSubview:img1];
+    [headerView addSubview:btn1];
+    
+    UIButton *btn2 =[[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4 +10,5,UI_SCREEN_W/4, 25)];
+    [btn2 setTitle:@"离店03-28"  forState:UIControlStateNormal];
+    btn2.titleLabel.font  = [UIFont systemFontOfSize: 12];
+    btn2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [btn2 setTitleColor:UIColorFromRGB(112, 128, 144) forState:UIControlStateNormal];
+    UIImageView *img2 = [[UIImageView alloc] initWithFrame:CGRectMake(UI_SCREEN_W/2-15,15,5,5)];
+    img2.image = [UIImage imageNamed:@"menu_down"];
+    UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake(UI_SCREEN_W/2,0,1, 30) ];
+    view2.backgroundColor = UIColorFromRGB(241, 241, 241);
+    //    [btn1 addTarget:self action:@selector(onClick1:)
+    //     forControlEvents:UIControlEventTouchUpInside];
+    [headerView  addSubview:view2];
+    [headerView  addSubview:img2];
+    [headerView addSubview:btn2];
+    
+    UIButton *btn3 =[[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/2 +10,5,UI_SCREEN_W/4, 25)];
+    [btn3 setTitle:@"智能排序"  forState:UIControlStateNormal];
+    btn3.titleLabel.font  = [UIFont systemFontOfSize: 12];
+    btn3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [btn3 setTitleColor:UIColorFromRGB(112, 128, 144) forState:UIControlStateNormal];
+    UIImageView *img3 = [[UIImageView alloc] initWithFrame:CGRectMake(UI_SCREEN_W - UI_SCREEN_W/4 -15,15,5,5)];
+    img3.image = [UIImage imageNamed:@"menu_down"];
+    UIView *view3 = [[UIView alloc]initWithFrame:CGRectMake(UI_SCREEN_W - UI_SCREEN_W/4,0,1, 30) ];
+    view3.backgroundColor = UIColorFromRGB(241, 241, 241);
+    //    [btn1 addTarget:self action:@selector(onClick1:)
+    //     forControlEvents:UIControlEventTouchUpInside];
+    [headerView  addSubview:view3];
+    [headerView  addSubview:img3];
+    [headerView addSubview:btn3];
+    
+    UIButton *btn4 =[[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W - UI_SCREEN_W/4 +10,5,UI_SCREEN_W/4, 25)];
+    [btn4 setTitle:@"  筛选"  forState:UIControlStateNormal];
+    btn4.titleLabel.font  = [UIFont systemFontOfSize: 12];
+    btn4.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [btn4 setTitleColor:UIColorFromRGB(112, 128, 144) forState:UIControlStateNormal];
+    UIImageView *img4 = [[UIImageView alloc] initWithFrame:CGRectMake(UI_SCREEN_W - 15,15,5,5)];
+    img4.image = [UIImage imageNamed:@"menu_down"];
+    
+    //    [btn1 addTarget:self action:@selector(onClick1:)
+    //     forControlEvents:UIControlEventTouchUpInside];
+       [headerView  addSubview:img4];
+    [headerView addSubview:btn4];
+    return headerView;
+}
+//设置section header的高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30.f;
+}
 //设置细胞高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80.f;
@@ -244,7 +329,13 @@
 }
 
 
+//设置每一组中没一行被点击以后要做的事情
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    }
+    
+    
 
 /*
 #pragma mark - Navigation
