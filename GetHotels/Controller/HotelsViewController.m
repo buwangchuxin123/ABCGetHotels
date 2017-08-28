@@ -37,6 +37,8 @@
 @property (strong,nonatomic)NSString *wxlatitude;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 @property (strong, nonatomic) NSMutableArray *firstResArr;
+@property (strong, nonatomic) NSMutableArray *AdImgarr;
+@property (strong, nonatomic) NSArray *AdImgarr1;
 @property (weak, nonatomic) IBOutlet UITableView *hotelsTableView;
 
 @property (weak, nonatomic) IBOutlet UIView *CycleAdView;
@@ -48,7 +50,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    _AdImgarr  =  [NSMutableArray new];
     _firstResArr = [NSMutableArray new];
+    _AdImgarr1  = @[@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png",@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png",@"http://ac-tscmo0vq.clouddn.com/1cbe1d0ad3bae6214d59.jpg"];
     pageNum = 1;
     pageSize = 10;
     startId = 1;
@@ -62,14 +66,13 @@
     [self naviConfig];
     [self locationConfig];
     [self netRequest];
-    NSLog(@"数组长度为：%lu",(unsigned long)_firstResArr.count);
-    [self addZLImageViewDisPlayView];
-    // Do any additional setup after loading the view.
+    [self addZLImageViewDisPlayView:_AdImgarr];
+    NSLog(@"数组里的是:%@",_AdImgarr[0]);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 //每次将要来到这个页面的时候
@@ -87,7 +90,7 @@
     [_locMgr stopUpdatingLocation];
 }
 - (void)naviConfig{
-    // self.navigationItem.title = @"GetHotels";
+     self.navigationItem.title = @"GetHotels";
     //设置导航条的颜色（风格颜色）
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(23, 124, 236);
     //设置导航条标题颜色
@@ -99,32 +102,19 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     //设置是否需要毛玻璃效果
     self.navigationController.navigationBar.translucent = YES;
-    //为导航条左上角创建一个按钮
-    //    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
-    //    self.navigationItem.leftBarButtonItem = left;
-}
--(void) addZLImageViewDisPlayView{
     
-    //获取要显示的位置
-    CGRect screenFrame = [[UIScreen mainScreen] bounds];
+}
+-(void) addZLImageViewDisPlayView:(NSArray *)arr{
+    
     
     CGRect frame = CGRectMake(0,0, UI_SCREEN_W, 150);
-    //@"001.jpg"
-    NSArray *imageArray = @[@"酒店-1", @"酒店-1", @"酒店-1", @"酒店-1"];// @"http://pic1.nipic.com/2008-12-25/2008122510134038_2.jpg"];
-    
     //初始化控件
     ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
-    imageViewDisplay.imageViewArray = imageArray;
+    imageViewDisplay.imageViewArray = arr;
     imageViewDisplay.scrollInterval = 3;
     imageViewDisplay.animationInterVale = 0.6;
     [_CycleAdView addSubview:imageViewDisplay];
-    
-//    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
-//        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
-//        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [alter show];
-//    }];
-    
+
 }
 
 
@@ -167,15 +157,24 @@
         
         if([responseObject[@"result"] integerValue] == 1){
             NSDictionary *content = responseObject[@"content"];
-           NSArray *result = content[@"hotel"][@"list"];
+            NSArray *result = content[@"hotel"][@"list"];
+            NSArray *Adarr  = content[@"advertising"];
+            for (NSDictionary *dict in Adarr) {
+//               //  HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
+//               //[_AdImgarr addObject:resultModel.AdImg];
+//               // NSLog(@"网址：%@",resultModel.AdImg);
+                [_AdImgarr addObject:dict[@"ad_img"]];
+                 NSLog(@"网址是：%@",dict[@"ad_img"]);
+//                 NSLog(@"数组里的是:%@",_AdImgarr[0]);
+            }
             for (NSDictionary *dict in result) {
               HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-              NSLog(@"结果：%@",resultModel.hotel_name);
-               NSLog(@"距离：%@",resultModel.distance);
-                 NSLog(@"图片地址：%@",resultModel.hotel_img);
+            //  NSLog(@"结果：%@",resultModel.hotel_name);
+             //  NSLog(@"距离：%@",resultModel.distance);
+               //  NSLog(@"图片地址：%@",resultModel.hotel_img);
               [_firstResArr addObject:resultModel];
             }
-           // NSArray
+        
             [_hotelsTableView reloadData];
             
         }else{
@@ -219,9 +218,28 @@
     double Kilometer  = [Str doubleValue];
     NSString *distance = [NSString stringWithFormat:@"距离我%.1f公里",(Kilometer/1000)];
     cell.distance.text = distance;
-    NSURL *URL = [NSURL URLWithString:hotelsModel.hotel_img];
-    [cell.HotelsImg sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"酒店-1"]];
+ //NSString *str = hotelsModel.hotel_img;//@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png";
+   NSURL *URL = [NSURL URLWithString:hotelsModel.hotel_img];
+   // [cell.HotelsImg sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"酒店-1"]];
+   //////////////////
+    NSString *userAgent = @"";
+    userAgent = [NSString stringWithFormat:@"%@/%@ (%@; iOS %@; Scale/%0.2f)", [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleExecutableKey] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleIdentifierKey], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey], [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion], [[UIScreen mainScreen] scale]];
     
+    if (userAgent) {
+        if (![userAgent canBeConvertedToEncoding:NSASCIIStringEncoding]) {
+            NSMutableString *mutableUserAgent = [userAgent mutableCopy];
+            if (CFStringTransform((__bridge CFMutableStringRef)(mutableUserAgent), NULL, (__bridge CFStringRef)@"Any-Latin; Latin-ASCII; [:^ASCII:] Remove", false)) {
+                userAgent = mutableUserAgent;
+            }
+        }
+        [[SDWebImageDownloader sharedDownloader] setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+    }
+    /////////////////////////
+    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+                                 forHTTPHeaderField:@"Accept"];
+    [cell.HotelsImg sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"酒店-1"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+      //  NSLog(@"=====error=%@",error);
+    }];
     return cell;
 }
 
@@ -341,9 +359,6 @@
     
 }
 
-- (void)backAction{
-    
-}
 
 - (IBAction)cityAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }

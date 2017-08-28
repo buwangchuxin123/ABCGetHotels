@@ -138,14 +138,27 @@
             }
             
             //说明是URL
-            if ([self verifyURL:imageName]) {
+         if ([self verifyURL:imageName]){
                 NSURL *url = [NSURL URLWithString:imageName];
-                [tempImageView sd_setImageWithURL:url
-                                 placeholderImage:[UIImage imageNamed:@"001.jpg"]];
+             
+             
+                [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+        //        [tempImageView sd_setImageWithURL:url
+        //                         placeholderImage:[UIImage imageNamed:@"酒店-1"]];
+             [tempImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店-1"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                   NSLog(@"=====error=%@",error);
+             }];
+                
+                
             } else {
                 UIImage *imageTemp = [UIImage imageNamed:imageName];
                 [tempImageView setImage:imageTemp];
+                
+                NSLog(@"我是空的");
             }
+            
+            
+            
             
             [_mainScrollView addSubview:tempImageView];
         }
@@ -159,6 +172,7 @@
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     BOOL isMatch = [pred evaluateWithObject:url];
     return isMatch;
+   
 }
 
 - (void) addTimerLoop{
