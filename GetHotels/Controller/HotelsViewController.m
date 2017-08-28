@@ -67,7 +67,7 @@
     [self locationConfig];
     [self netRequest];
     [self addZLImageViewDisPlayView:_AdImgarr];
-    NSLog(@"数组里的是:%@",_AdImgarr[0]);
+    //NSLog(@"数组里的是:%@",_AdImgarr[0]);
 }
 
 - (void)didReceiveMemoryWarning {

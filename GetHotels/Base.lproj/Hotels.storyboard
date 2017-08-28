@@ -96,15 +96,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24X-Vs-uxJ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="40"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="定位" translatesAutoresizingMaskIntoConstraints="NO" id="JQs-Pk-oK4">
-                                        <rect key="frame" x="15" y="10" width="14.5" height="20"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="JQs-Pk-oK4">
+                                        <rect key="frame" x="15" y="12.5" width="11" height="15"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="240-hp-bkl"/>
+                                            <constraint firstAttribute="height" constant="15" id="240-hp-bkl"/>
                                             <constraint firstAttribute="width" secondItem="JQs-Pk-oK4" secondAttribute="height" multiplier="2:3" constant="1" id="Iao-co-nW8"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQ8-HF-ms1">
-                                        <rect key="frame" x="34.5" y="5" width="31" height="30"/>
+                                        <rect key="frame" x="31" y="11.5" width="31" height="17"/>
                                         <state key="normal" title="上海">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -113,18 +113,18 @@
                                             <segue destination="HoJ-aR-rNr" kind="presentation" id="zbu-S7-Dl6"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OoL-2O-Mcl">
-                                        <rect key="frame" x="68.5" y="10" width="14.5" height="20"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu_down" translatesAutoresizingMaskIntoConstraints="NO" id="OoL-2O-Mcl">
+                                        <rect key="frame" x="65" y="16.5" width="6" height="7"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="EaN-eX-Nlx"/>
+                                            <constraint firstAttribute="height" constant="7" id="EaN-eX-Nlx"/>
                                             <constraint firstAttribute="width" secondItem="OoL-2O-Mcl" secondAttribute="height" multiplier="2:3" constant="1" id="m2E-GW-SbP"/>
                                         </constraints>
                                     </imageView>
                                     <searchBar contentMode="redraw" placeholder="搜索酒店/街道/城市" translatesAutoresizingMaskIntoConstraints="NO" id="9gu-gj-msM">
-                                        <rect key="frame" x="93" y="5" width="192" height="30"/>
+                                        <rect key="frame" x="81" y="5" width="204" height="30"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kjD-9r-YZh">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spit" translatesAutoresizingMaskIntoConstraints="NO" id="kjD-9r-YZh">
                                         <rect key="frame" x="335" y="5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="kjD-9r-YZh" secondAttribute="height" multiplier="1:1" id="LF3-cO-amX"/>
@@ -146,6 +146,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.090196078430000007" green="0.48627450979999998" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="OoL-2O-Mcl" firstAttribute="top" secondItem="oQ8-HF-ms1" secondAttribute="top" constant="5" id="6lQ-cW-Rnx"/>
                                     <constraint firstAttribute="trailing" secondItem="kjD-9r-YZh" secondAttribute="trailing" constant="10" id="7Db-Yg-UVy"/>
                                     <constraint firstItem="9gu-gj-msM" firstAttribute="centerY" secondItem="24X-Vs-uxJ" secondAttribute="centerY" id="8AG-TT-ow3"/>
                                     <constraint firstItem="aJ8-lq-cMP" firstAttribute="leading" secondItem="9gu-gj-msM" secondAttribute="trailing" constant="20" id="A5C-TM-zR3"/>
@@ -280,7 +281,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="定位" width="49" height="54"/>
+        <image name="location" width="11" height="15"/>
+        <image name="menu_down" width="11" height="6"/>
+        <image name="spit" width="29" height="26"/>
         <image name="酒店-1" width="268" height="151"/>
     </resources>
 </document>
