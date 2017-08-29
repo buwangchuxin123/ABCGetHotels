@@ -52,6 +52,10 @@
 @property (strong,nonatomic)NSString *city_name;
 @property (strong,nonatomic)NSString *inTime;
 @property (strong,nonatomic)NSString *outTime;
+
+@property (strong, nonatomic) NSMutableArray *firstResArr;
+@property (strong, nonatomic) NSMutableArray *AdImgarr;
+@property (strong, nonatomic) NSMutableArray *AdImgarr1;
 @end
 
 @implementation DetailViewController
@@ -59,11 +63,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    _AdImgarr  =   [NSMutableArray new];
+    _firstResArr = [NSMutableArray new];
+    _AdImgarr1  = [[NSMutableArray alloc]initWithObjects:@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png",@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png",@"http://ac-tscmo0vq.clouddn.com/1cbe1d0ad3bae6214d59.jpg",@"http://ac-tscmo0vq.clouddn.com/b3ca642f7a9297e907c7.jpg",@"http://ac-tscmo0vq.clouddn.com/5c1f5d0dd16e0888ecd0.jpg",nil];
+
+    pageNum = 1;
+    pageSize = 10;
+    startId = 1;
+    priceId = 1;
     _sortingId = @"1";
     _city_name = @"无锡";
     _wxlongitude = @"120.300000";
     _wxlatitude = @"31.570000";
-
+    _inTime = @"2017-08-25";
+    _outTime = @"2017-08-26";
+    [self naviConfig];
+    [self netRequest];
+    [self addZLImageViewDisPlayView:_AdImgarr1];
 }
 
 - (void)didReceiveMemoryWarning {
