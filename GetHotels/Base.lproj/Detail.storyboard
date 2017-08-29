@@ -553,12 +553,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fga-xR-go0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2594" y="-1800"/>
+            <point key="canvasLocation" x="2242" y="-1827"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="ZYj-dZ-fOc">
             <objects>
-                <viewController id="iJh-Wv-Phh" sceneMemberID="viewController">
+                <viewController id="iJh-Wv-Phh" customClass="DetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fzn-1D-026"/>
                         <viewControllerLayoutGuide type="bottom" id="iDh-Vc-A7n"/>
@@ -722,6 +722,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-PX-hxt">
                                                 <rect key="frame" x="115" y="15" width="77" height="30"/>
                                                 <state key="normal" title="豪华大床房"/>
+                                                <connections>
+                                                    <action selector="roomTypeAction:forEvent:" destination="iJh-Wv-Phh" eventType="touchUpInside" id="bDY-5g-UHP"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[含早]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8Z-wZ-2Xy">
                                                 <rect key="frame" x="115" y="67" width="41.5" height="18"/>
@@ -801,26 +804,26 @@
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接机服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6K-mQ-Chc">
-                                                <rect key="frame" x="154" y="52" width="53.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="餐厅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6K-mQ-Chc">
+                                                <rect key="frame" x="154" y="52" width="27" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接机服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YE0-2Y-5tp">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="行李寄存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YE0-2Y-5tp">
                                                 <rect key="frame" x="154" y="32" width="53.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费停车场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybN-sR-rYS">
-                                                <rect key="frame" x="293.5" y="12" width="66.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费wifi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybN-sR-rYS">
+                                                <rect key="frame" x="312.5" y="12" width="47.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接机服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mac-Z4-E9W">
-                                                <rect key="frame" x="293.5" y="32" width="53.5" height="16"/>
+                                                <rect key="frame" x="312.5" y="32" width="53.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -996,6 +999,7 @@
                                         <date key="maximumDate" timeIntervalSinceReferenceDate="536410800">
                                             <!--2017-12-31 11:00:00 +0000-->
                                         </date>
+                                        <locale key="locale" localeIdentifier="zh-Hans"/>
                                     </datePicker>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1019,6 +1023,9 @@
                                         <state key="normal" title="微聊">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="ChatAction:forEvent:" destination="iJh-Wv-Phh" eventType="touchUpInside" id="12y-RO-xdI"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b33-ei-agn">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
@@ -1027,6 +1034,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="purchaseAction:forEvent:" destination="iJh-Wv-Phh" eventType="touchUpInside" id="KwS-aW-2iq"/>
                                             <segue destination="ufP-N7-7Nn" kind="show" id="HTZ-nV-I5P"/>
                                         </connections>
                                     </button>
@@ -1063,10 +1071,38 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="UIimage" destination="hzy-yr-jvS" id="87c-j1-u88"/>
+                        <outlet property="adView" destination="6he-Ty-Vqe" id="nEX-kG-nnc"/>
+                        <outlet property="address" destination="KPt-nL-5t3" id="erh-wz-0Yd"/>
+                        <outlet property="bedTypeLbl" destination="VvF-gj-uhV" id="VXW-LL-Hfs"/>
+                        <outlet property="breakfastLbl" destination="q8Z-wZ-2Xy" id="Epb-t5-Vfi"/>
+                        <outlet property="checkInTimeLbl" destination="h1z-Zc-lPc" id="RT6-LO-ffO"/>
+                        <outlet property="dataPicker" destination="2Vq-P5-AJF" id="aEu-38-yH2"/>
+                        <outlet property="endDayBtn" destination="BY4-Wg-MPy" id="ddM-TD-OKj"/>
+                        <outlet property="endDayLbl" destination="PIz-fG-f2y" id="fNd-kl-KzK"/>
+                        <outlet property="fitnessLbl" destination="DV3-JJ-ZNx" id="Mi1-13-3oz"/>
+                        <outlet property="freeProductLbl" destination="dO4-7H-1Fc" id="fb9-sa-Apa"/>
+                        <outlet property="freeWifi" destination="ybN-sR-rYS" id="aXi-kL-i6y"/>
+                        <outlet property="hotelName" destination="0m9-ce-JCZ" id="3d7-mj-BoT"/>
+                        <outlet property="isCarrayPetLbl" destination="08F-z2-bs8" id="BnT-YB-lc3"/>
+                        <outlet property="leaveTimeLbl" destination="8aS-uo-JLs" id="HkW-nW-NgH"/>
+                        <outlet property="luggageLbl" destination="YE0-2Y-5tp" id="PUR-BO-uxT"/>
+                        <outlet property="parkLbl" destination="iuf-ds-4nh" id="qhQ-GM-iGa"/>
+                        <outlet property="pickUpLbl" destination="1qs-Ue-NKN" id="ftY-FJ-Lid"/>
+                        <outlet property="price" destination="Zv4-W3-jpS" id="pRi-oH-qCZ"/>
+                        <outlet property="restaurantLbl" destination="n6K-mQ-Chc" id="47K-zV-w4m"/>
+                        <outlet property="roomArea" destination="UCU-yW-Sv4" id="dXm-rJ-vYC"/>
+                        <outlet property="roomTypeBtn" destination="3kZ-PX-hxt" id="JTL-vf-raj"/>
+                        <outlet property="starDayBtn" destination="ODx-YR-Xfs" id="v8t-Fo-VMg"/>
+                        <outlet property="starDayLbl" destination="x7w-sE-g6Z" id="Sdi-eI-uEs"/>
+                        <outlet property="toolBar" destination="9q0-jX-QWh" id="KJV-jW-pyp"/>
+                        <outlet property="wakeUpLbl" destination="Mac-Z4-E9W" id="z1L-ue-IXg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QRv-ai-f7T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1687" y="-1818"/>
+            <point key="canvasLocation" x="1422" y="-1827"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XKf-Pl-Gj5">
@@ -1084,7 +1120,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fwK-TF-ZFX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="817" y="-1818"/>
+            <point key="canvasLocation" x="434" y="-1819"/>
         </scene>
     </scenes>
     <resources>
