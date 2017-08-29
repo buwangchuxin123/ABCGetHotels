@@ -7,8 +7,14 @@
 //
 
 #import "DetailViewController.h"
+#import "HotelsModel.h"
 
-@interface DetailViewController ()
+@interface DetailViewController (){
+    NSInteger pageNum;
+    NSInteger pageSize;
+    NSInteger startId;
+    NSInteger priceId;
+}
 @property (weak, nonatomic) IBOutlet UIView *adView;
 @property (weak, nonatomic) IBOutlet UILabel *hotelName;
 @property (weak, nonatomic) IBOutlet UILabel *price;
@@ -38,12 +44,14 @@
 - (IBAction)purchaseAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UIDatePicker *dataPicker;
-
+@property (strong,nonatomic)UIActivityIndicatorView *avi;
 
 @property (strong,nonatomic)NSString *sortingId;
 @property (strong,nonatomic)NSString *wxlongitude;
 @property (strong,nonatomic)NSString *wxlatitude;
 @property (strong,nonatomic)NSString *city_name;
+@property (strong,nonatomic)NSString *inTime;
+@property (strong,nonatomic)NSString *outTime;
 @end
 
 @implementation DetailViewController
@@ -61,6 +69,77 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)naviConfig{
+    self.navigationItem.title = @"酒店预订";
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(20, 124, 236);
+    //设置导航条标题颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    //设置导航条是否被隐藏
+    self.navigationController.navigationBar.hidden = NO;
+    
+    //设置导航条上按钮的风格颜色
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    //设置是否需要毛玻璃效果
+    self.navigationController.navigationBar.translucent = YES;
+    
+}
+-(void) addZLImageViewDisPlayView:(NSArray *)arr{
+    
+    
+    CGRect frame = CGRectMake(0,0, UI_SCREEN_W, 160);
+    //初始化控件
+    ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
+    imageViewDisplay.imageViewArray = arr;
+    imageViewDisplay.scrollInterval = 3;
+    imageViewDisplay.animationInterVale = 0.6;
+    [_adView addSubview:imageViewDisplay];
+    
+}
+
+- (void)netRequest{
+    _avi = [Utilities getCoverOnView:self.view];
+    NSDictionary *para =  @{@"city_name":_city_name,@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"startId":@(startId),@"priceId":@(priceId),@"sortingId":_sortingId,@"inTime":_inTime,@"outTime":_outTime,@"wxlatitude":_wxlatitude ,@"wxlongitude":_wxlongitude};
+    [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"responseObject:%@", responseObject);
+        [_avi stopAnimating];
+        
+        if([responseObject[@"result"] integerValue] == 1){
+            NSDictionary *content = responseObject[@"content"];
+            NSArray *result = content[@"hotel"][@"list"];
+            NSArray *Adarr  = content[@"advertising"];
+            for (NSDictionary *dict in Adarr) {
+                HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
+           //     [ self.AdImgarr addObject:resultModel.AdImg];
+                NSLog(@"网址：%@",resultModel.AdImg);
+                
+                //  [_AdImgarr addObject:dict[@"ad_img"]];
+                // _AdImgarr = dict[@"ad_img"];//copy;
+                // NSLog(@"网址是：%@",dict[@"ad_img"]);
+                
+            }
+            for (NSDictionary *dict in result) {
+                HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
+                //  NSLog(@"结果：%@",resultModel.hotel_name);
+                //  NSLog(@"距离：%@",resultModel.distance);
+                //  NSLog(@"图片地址：%@",resultModel.hotel_img);
+             //   [_firstResArr addObject:resultModel];
+            }
+            
+         //   [_hotelsTableView reloadData];
+            
+        }else{
+            //业务逻辑失败的情况下
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
+        [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
+    }];
+    
 }
 
 /*
