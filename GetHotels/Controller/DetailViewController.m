@@ -39,6 +39,11 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UIDatePicker *dataPicker;
 
+
+@property (strong,nonatomic)NSString *sortingId;
+@property (strong,nonatomic)NSString *wxlongitude;
+@property (strong,nonatomic)NSString *wxlatitude;
+@property (strong,nonatomic)NSString *city_name;
 @end
 
 @implementation DetailViewController
@@ -46,6 +51,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _sortingId = @"1";
+    _city_name = @"无锡";
+    _wxlongitude = @"120.300000";
+    _wxlatitude = @"31.570000";
+
 }
 
 - (void)didReceiveMemoryWarning {
