@@ -133,7 +133,7 @@
                 
                 //  [_AdImgarr addObject:dict[@"ad_img"]];
                 // _AdImgarr = dict[@"ad_img"];//copy;
-                // NSLog(@"网址是：%@",dict[@"ad_img"]);
+                     NSLog(@"网址是：%@",dict[@"ad_img"]);
                 
             }
             for (NSDictionary *dict in result) {
