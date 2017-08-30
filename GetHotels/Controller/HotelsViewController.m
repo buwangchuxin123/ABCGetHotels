@@ -65,7 +65,7 @@
     _wxlatitude = @"31.570000";
     [self naviConfig];
     [self netRequest];
-    [self addZLImageViewDisPlayView:_AdImgarr];
+    
   // NSLog(@"数组里的是:%@",_AdImgarr[2]);
 }
 
@@ -164,7 +164,7 @@
     _avi = [Utilities getCoverOnView:self.view];
     NSDictionary *para =  @{@"city_name":_city_name,@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"startId":@(startId),@"priceId":@(priceId),@"sortingId":_sortingId,@"inTime":_inTime,@"outTime":_outTime,@"wxlatitude":_wxlatitude ,@"wxlongitude":_wxlongitude};
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"responseObject:%@", responseObject);
+     //   NSLog(@"responseObject:%@", responseObject);
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){
@@ -172,21 +172,21 @@
             NSArray *result = content[@"hotel"][@"list"];
             NSArray *Adarr  = content[@"advertising"];
             for (NSDictionary *dict in Adarr) {
-              HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-              [ self.AdImgarr addObject:resultModel.AdImg];
+              HotelsModel *resultModel = [[HotelsModel alloc] initWithAdImgDict:dict];
+              [ _AdImgarr addObject:resultModel.AdImg];
                 
-                [_AdImgarr addObject:dict[@"ad_img"]];
-               // _AdImgarr = dict[@"ad_img"];//copy;
-               // NSLog(@"网址是：%@",dict[@"ad_img"]);
+               
+              
                
             }
-            //NSLog(@"网址：%@",_AdImgarr[2]);
+            NSLog(@"网址：%@",_AdImgarr[2]);
+            [self addZLImageViewDisPlayView:_AdImgarr];
             for (NSDictionary *dict in result) {
               HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-            //  NSLog(@"结果：%@",resultModel.hotel_name);
-             //  NSLog(@"距离：%@",resultModel.distance);
-               //  NSLog(@"图片地址：%@",resultModel.hotel_img);
+              NSLog(@"结果：%@",resultModel.hotelId);
+             
               [_firstResArr addObject:resultModel];
+              
             }
         
             [_hotelsTableView reloadData];
@@ -303,10 +303,9 @@
     double Kilometer  = [Str doubleValue];
     NSString *distance = [NSString stringWithFormat:@"距离我%.1f公里",(Kilometer/1000)];
     cell.distance.text = distance;
- //NSString *str = hotelsModel.hotel_img;//@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png";
-   NSURL *URL = [NSURL URLWithString:hotelsModel.hotel_img];
-   // [cell.HotelsImg sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"酒店-1"]];
-   //////////////////
+ 
+    NSURL *URL = [NSURL URLWithString:hotelsModel.hotel_img];
+  
     NSString *userAgent = @"";
     userAgent = [NSString stringWithFormat:@"%@/%@ (%@; iOS %@; Scale/%0.2f)", [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleExecutableKey] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleIdentifierKey], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey], [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion], [[UIScreen mainScreen] scale]];
     

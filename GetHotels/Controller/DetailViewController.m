@@ -46,16 +46,10 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *dataPicker;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 
-@property (strong,nonatomic)NSString *sortingId;
-@property (strong,nonatomic)NSString *wxlongitude;
-@property (strong,nonatomic)NSString *wxlatitude;
-@property (strong,nonatomic)NSString *city_name;
-@property (strong,nonatomic)NSString *inTime;
-@property (strong,nonatomic)NSString *outTime;
 
 @property (strong, nonatomic) NSMutableArray *firstResArr;
 @property (strong, nonatomic) NSMutableArray *AdImgarr;
-@property (strong, nonatomic) NSMutableArray *AdImgarr1;
+
 @end
 
 @implementation DetailViewController
@@ -66,21 +60,11 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     _AdImgarr  =   [NSMutableArray new];
     _firstResArr = [NSMutableArray new];
-    _AdImgarr1  = [[NSMutableArray alloc]initWithObjects:@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png",@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png",@"http://ac-tscmo0vq.clouddn.com/1cbe1d0ad3bae6214d59.jpg",@"http://ac-tscmo0vq.clouddn.com/b3ca642f7a9297e907c7.jpg",@"http://ac-tscmo0vq.clouddn.com/5c1f5d0dd16e0888ecd0.jpg",nil];
+    
 
-    pageNum = 1;
-    pageSize = 10;
-    startId = 1;
-    priceId = 1;
-    _sortingId = @"1";
-    _city_name = @"无锡";
-    _wxlongitude = @"120.300000";
-    _wxlatitude = @"31.570000";
-    _inTime = @"2017-08-25";
-    _outTime = @"2017-08-26";
     [self naviConfig];
-   // [self netRequest];
-    [self addZLImageViewDisPlayView:_AdImgarr1];
+     [self netRequest];
+    [self addZLImageViewDisPlayView:_AdImgarr];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -131,37 +115,53 @@
     
 }
 
+-(void)uiLayout{
+    _hotelName.text = _Hotel.hotel_name;
+    _price.text = [NSString stringWithFormat:@"¥ %@",_Hotel.now_price];
+    _address.text = _Hotel.hotel_address;
+    
+    _UIimage.image = [UIImage imageNamed:@"酒店-1"];
+    [ _roomTypeBtn setTitle: _Hotel.hotel_types[0] forState:UIControlStateNormal];
+    _breakfastLbl.text = _Hotel.hotel_types[1];
+    _bedTypeLbl.text = _Hotel.hotel_types[2];
+    _roomArea.text = _Hotel.hotel_types[3];
+    
+    NSArray *array = _Hotel.hotel_facilities;
+    for(int i = 0;i< array.count;i++){
+        if(i == 0){ _parkLbl.text = array[0];}
+        if(i == 1){ _pickUpLbl.text = array[1];}
+        if(i == 2){ _fitnessLbl.text = array[2];}
+        if(i == 3){ _freeProductLbl.text = array[3];}
+        if(i == 4){ _luggageLbl.text = array[4];}
+        if(i == 5){ _restaurantLbl.text = array[5];}
+        if(i == 6){ _freeWifi.text = array[6];}
+        if(i == 7){ _wakeUpLbl.text = array[7];}
+    }
+}
 - (void)netRequest{
     _avi = [Utilities getCoverOnView:self.view];
-    NSDictionary *para =  @{@"city_name":_city_name,@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"startId":@(startId),@"priceId":@(priceId),@"sortingId":_sortingId,@"inTime":_inTime,@"outTime":_outTime,@"wxlatitude":_wxlatitude ,@"wxlongitude":_wxlongitude};
-    [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+    NSDictionary *para =  @{@"id":@1};
+    [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject:%@", responseObject);
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){
             NSDictionary *content = responseObject[@"content"];
-            NSArray *result = content[@"hotel"][@"list"];
-            NSArray *Adarr  = content[@"advertising"];
-            for (NSDictionary *dict in Adarr) {
-                HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-           //     [ self.AdImgarr addObject:resultModel.AdImg];
-                NSLog(@"网址：%@",resultModel.AdImg);
-                
-                //  [_AdImgarr addObject:dict[@"ad_img"]];
-                // _AdImgarr = dict[@"ad_img"];//copy;
-                     NSLog(@"网址是：%@",dict[@"ad_img"]);
-                
-            }
-            for (NSDictionary *dict in result) {
-                HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-                //  NSLog(@"结果：%@",resultModel.hotel_name);
-                //  NSLog(@"距离：%@",resultModel.distance);
-                //  NSLog(@"图片地址：%@",resultModel.hotel_img);
-             //   [_firstResArr addObject:resultModel];
-            }
+          _Hotel = [[HotelsModel alloc] initWithDetailDict:content];
+            [self uiLayout];
             
-         //   [_hotelsTableView reloadData];
-            
+                [self addZLImageViewDisPlayView:_AdImgarr];
+         
+//            for (NSDictionary *dict in result) {
+//                HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
+//                //  NSLog(@"结果：%@",resultModel.hotel_name);
+//                //  NSLog(@"距离：%@",resultModel.distance);
+//                //  NSLog(@"图片地址：%@",resultModel.hotel_img);
+//             //   [_firstResArr addObject:resultModel];
+//           }
+//            
+//         //   [_hotelsTableView reloadData];
+//            
         }else{
             //业务逻辑失败的情况下
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];

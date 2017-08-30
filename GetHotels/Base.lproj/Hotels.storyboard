@@ -79,7 +79,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8L2-1s-KJQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2881" y="-999"/>
+            <point key="canvasLocation" x="-2844" y="-972"/>
         </scene>
         <!--Hotels View Controller-->
         <scene sceneID="H3L-L9-PsT">
@@ -272,7 +272,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IB6-C3-raH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3978.4000000000001" y="-1346.176911544228"/>
+            <point key="canvasLocation" x="-3858" y="-1347"/>
         </scene>
         <!--Detail-->
         <scene sceneID="Hsh-y1-oJ7">
