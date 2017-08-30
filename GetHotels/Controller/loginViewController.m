@@ -142,7 +142,8 @@
             _passwordTextField.text = @"";
             //记忆用户名
             [Utilities setUserDefaults:@"Username" content:_passwordTextField.text];
-            [self performSegueWithIdentifier:@"loginToMyinfo" sender:self];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
         }else{
             NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"result"]integerValue]];
             [Utilities popUpAlertViewWithMsg:errorMsg andTitle:@"提示" onView:self];

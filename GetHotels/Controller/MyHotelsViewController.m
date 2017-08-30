@@ -14,9 +14,17 @@
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *ScrollView;
 @property (weak, nonatomic) IBOutlet UITableView *allOrderTableView;
+@property (weak, nonatomic) IBOutlet UITableView *EnableTableView;
+@property (weak, nonatomic) IBOutlet UITableView *ExpiredTableView;
 @property (strong, nonatomic)HMSegmentedControl *segmentedControl;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
 @property (strong, nonatomic)NSMutableArray *allOrderArr;
+@property (strong, nonatomic)NSMutableArray *enAbleArr;
+@property (strong, nonatomic)NSMutableArray *expiredArr;
+
+@property (strong, nonatomic) UIImageView *allOrderNothingImg;
+@property (strong, nonatomic) UIImageView *enAbleNothingImg;
+@property (strong, nonatomic) UIImageView *expiredNothingImg;
 @end
 
 @implementation MyHotelsViewController
@@ -28,6 +36,10 @@
     [self naviConfig];
     [self setSegment];
     _allOrderTableView.tableFooterView = [UIView new];
+    if (_allOrderArr.count == 0) {
+        [self nothingForTableView];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +97,17 @@
     
     [self.view addSubview:_segmentedControl];
 }
+-(void)nothingForTableView{
+    _allOrderNothingImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
+    _allOrderNothingImg.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    _enAbleNothingImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
+    _enAbleNothingImg.frame = CGRectMake(UI_SCREEN_W + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    _expiredNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+    _expiredNothingImg.frame = CGRectMake(UI_SCREEN_W * 2 + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    [_ScrollView addSubview:_allOrderNothingImg];
+    [_ScrollView addSubview:_enAbleNothingImg];
+    [_ScrollView addSubview:_expiredNothingImg];
+}
 //网络请求
 -(void)allOrderRequest{
     _avi = [Utilities getCoverOnView:self.view];
@@ -92,7 +115,13 @@
     [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         NSLog(@"%ld",(long)responseObject);
-        
+        //当数组没有数据时将图片显示，反之隐藏
+        if (_allOrderArr.count == 0) {
+            _allOrderNothingImg.hidden = NO;
+        }else{
+            _allOrderNothingImg.hidden = YES;
+        }
+        [_allOrderTableView reloadData];
     } failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
         //业务逻辑失败的情况下

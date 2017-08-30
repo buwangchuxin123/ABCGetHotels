@@ -83,7 +83,8 @@
         if ([responseObject[@"result"] integerValue] ==1) {
             NSLog(@"responseObject:%@", responseObject);
             [Utilities popUpAlertViewWithMsg:@"恭喜你注册成功" andTitle:nil onView:self];
-            [self performSegueWithIdentifier:@"RegeditToLogin" sender:self];
+            //[self dismissViewControllerAnimated:YES completion:nil];
+            [self performSegueWithIdentifier:@"regToLogin" sender:self];
         } else{
             [_avi stopAnimating];
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject [@"result"]integerValue]];

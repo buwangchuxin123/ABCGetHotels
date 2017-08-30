@@ -12,41 +12,41 @@
 
 + (NSString *)getProperErrorString:(NSInteger)code {
     switch (code) {
-        case 8002:
-            return @"操作失败";
+        case 1:
+            return @"成功";
             break;
-        case 8003:
-            return @"提交成功";
+        case -100:
+            return @"失败";
             break;
-        case 8004:
-            return @"提交失败";
+        case -101:
+            return @"参数为空";
             break;
-        case 8005:
-            return @"操作失败";
+        case -102:
+            return @"用户不存在";
             break;
-        case 8006:
-            return @"操作失败";
+        case -103:
+            return @"酒店已经预定";
             break;
-        case 8007:
-            return @"更新成功";
+        case -104:
+            return @"酒店已删除";
             break;
-        case 8008:
-            return @"更新失败";
+        case -105:
+            return @"异常处理";
             break;
-        case 8009:
-            return @"插入成功";
-            break;
-        case 8010:
-            return @"插入失败";
-            break;
-        case 8011:
+        case -106:
             return @"验证码错误";
             break;
-        case 8012:
-            return @"注册成功";
+        case -107:
+            return @"验证码发送失败";
             break;
-        case 8013:
-            return @"注册失败";
+        case -204:
+            return @"参数错误";
+            break;
+        case -207:
+            return @"手机格式错误";
+            break;
+        case 0:
+            return @"数据为空";
             break;
         case 8014:
             return @"参数为空";
