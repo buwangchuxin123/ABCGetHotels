@@ -79,7 +79,7 @@
     _inTime = @"2017-08-25";
     _outTime = @"2017-08-26";
     [self naviConfig];
-    [self netRequest];
+   // [self netRequest];
     [self addZLImageViewDisPlayView:_AdImgarr1];
 }
 
@@ -100,8 +100,24 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     //设置是否需要毛玻璃效果
     self.navigationController.navigationBar.translucent = YES;
+    //实例化一个button 类型为UIButtonTypeSystem
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置位置大小
+    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    //设置其背景图片为返回图片
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
+    //给按钮添加事件
+    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     
 }
+//自定的返回按钮的事件
+- (void)leftButtonAction: (UIButton *)sender{
+     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 -(void) addZLImageViewDisPlayView:(NSArray *)arr{
     
     

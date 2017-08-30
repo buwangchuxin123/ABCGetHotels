@@ -18,4 +18,5 @@
 @property (strong,nonatomic)NSString *hotel_address;
 @property (strong,nonatomic)NSString *AdImg;
 - (instancetype)initWithDict: (NSDictionary *)dict;
+
 @end

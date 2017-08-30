@@ -76,7 +76,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jKO-lf-Lp1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="510" y="35"/>
+            <point key="canvasLocation" x="630" y="46"/>
         </scene>
         <!--Flight-->
         <scene sceneID="krc-Tn-8oW">
