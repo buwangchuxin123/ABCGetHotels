@@ -238,7 +238,7 @@
                                             <outlet property="address" destination="5uU-F4-ZP6" id="D2l-Dp-EDy"/>
                                             <outlet property="distance" destination="Olo-S8-3hi" id="vqI-t0-zYh"/>
                                             <outlet property="price" destination="dOK-1W-YgZ" id="dry-a8-bny"/>
-                                            <segue destination="uwe-c2-eN2" kind="showDetail" id="rMe-BO-3Xu"/>
+                                            <segue destination="uwe-c2-eN2" kind="show" id="OFP-bb-tmO"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -285,7 +285,7 @@
     </scenes>
     <resources>
         <image name="location" width="11" height="15"/>
-        <image name="menu_down" width="11" height="6"/>
+        <image name="menu_down" width="23" height="13"/>
         <image name="spit" width="29" height="26"/>
         <image name="酒店-1" width="268" height="151"/>
     </resources>

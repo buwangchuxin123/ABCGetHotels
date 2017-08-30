@@ -65,8 +65,8 @@
     _wxlatitude = @"31.570000";
     [self naviConfig];
     [self netRequest];
-    [self addZLImageViewDisPlayView:_AdImgarr1];
-   //NSLog(@"数组里的是:%@",_AdImgarr[2]);
+    [self addZLImageViewDisPlayView:_AdImgarr];
+  // NSLog(@"数组里的是:%@",_AdImgarr[2]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -174,13 +174,13 @@
             for (NSDictionary *dict in Adarr) {
               HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
               [ self.AdImgarr addObject:resultModel.AdImg];
-                NSLog(@"网址：%@",resultModel.AdImg);
                 
-              //  [_AdImgarr addObject:dict[@"ad_img"]];
+                [_AdImgarr addObject:dict[@"ad_img"]];
                // _AdImgarr = dict[@"ad_img"];//copy;
                // NSLog(@"网址是：%@",dict[@"ad_img"]);
                
             }
+            //NSLog(@"网址：%@",_AdImgarr[2]);
             for (NSDictionary *dict in result) {
               HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
             //  NSLog(@"结果：%@",resultModel.hotel_name);
@@ -203,7 +203,7 @@
     }];
 
 }
-
+                  
 #pragma mark - tableView
 //设置组的头标题文字
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -332,7 +332,7 @@
 //设置每一组中没一行被点击以后要做的事情
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+          //[self.navigationController popViewControllerAnimated:YES];
     }
     
     
