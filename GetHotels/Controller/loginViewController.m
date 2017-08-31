@@ -75,10 +75,10 @@
     
 }
 -(void)uiLayout{
-    if (![[Utilities getUserDefaults:@"nick_name"]isKindOfClass:[NSNull class]]) {
-        if ([Utilities getUserDefaults:@"nick_name"]!=nil) {
+    if (![[Utilities getUserDefaults:@"UserTel"]isKindOfClass:[NSNull class]]) {
+        if ([Utilities getUserDefaults:@"UserTel"]!=nil) {
             //将它显示在用户名输入框
-            _phoneTextField.text = [Utilities getUserDefaults:@"nick_name"];
+            _phoneTextField.text = [Utilities getUserDefaults:@"UserTel"];
         }
     }
     //添加事件监听当输入框的内容改变时调用textChange:方法
@@ -136,13 +136,13 @@
             //将登录获取到用户信息打包存储到单例化全局变量中
             [[StorageMgr singletonStorageMgr]addKey:@"UserInfo" andValue:user];
             //单独将用户的ID也存储进单例化全局变量来作为用户是否已经登录的判断依据，同时也方便其他所有页面跟快捷的是用用户ID这个参数
-            [[StorageMgr singletonStorageMgr]addKey:@"MemberId" andValue:user.MemberId];
+            [[StorageMgr singletonStorageMgr]addKey:@"MemberId" andValue:user.userId];
             //如果键盘还打开着让它收起
             [self.view endEditing:YES];
             //清空密码输入框的内容
             _passwordTextField.text = @"";
             //记忆用户名
-            [Utilities setUserDefaults:@"Username" content:_passwordTextField.text];
+            [Utilities setUserDefaults:@"UserTel" content:_phoneTextField.text];
             
             [self dismissViewControllerAnimated:YES completion:nil];
         }else{

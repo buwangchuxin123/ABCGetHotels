@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,25 +21,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="启动" translatesAutoresizingMaskIntoConstraints="NO" id="29R-gK-DJp">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="启动" translatesAutoresizingMaskIntoConstraints="NO" id="GNk-9U-nUl">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="29R-gK-DJp" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="5So-Db-nNu"/>
-                            <constraint firstAttribute="trailing" secondItem="29R-gK-DJp" secondAttribute="trailing" id="ZOD-DF-3yk"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="29R-gK-DJp" secondAttribute="bottom" id="bXq-OV-vbR"/>
-                            <constraint firstItem="29R-gK-DJp" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="gVg-no-FCZ"/>
+                            <constraint firstAttribute="trailing" secondItem="GNk-9U-nUl" secondAttribute="trailing" id="JD7-lf-KYz"/>
+                            <constraint firstItem="GNk-9U-nUl" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Pwm-42-AjI"/>
+                            <constraint firstAttribute="bottom" secondItem="GNk-9U-nUl" secondAttribute="bottom" id="QT0-47-iaj"/>
+                            <constraint firstItem="GNk-9U-nUl" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="eIm-KH-Cgs"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="505" y="336"/>
+            <point key="canvasLocation" x="504.80000000000001" y="335.98200899550227"/>
         </scene>
     </scenes>
     <resources>
-        <image name="启动" width="375" height="667"/>
+        <image name="启动" width="751" height="1334"/>
     </resources>
 </document>

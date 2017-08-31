@@ -138,21 +138,18 @@
     //取消选择
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([Utilities loginCheck]) {
-    if (indexPath.section == 0) {
-        
-            switch (indexPath.row) {
+    
+        switch (indexPath.section) {
                 case 0:{
                     [self performSegueWithIdentifier:@"myInfoToHotels" sender:self];
                 }
                     break;
-                    break;
+                    
                 default:
                     break;
             }
-    }
-        
-    }
- else{
+    
+    }else{
     UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Myinfo" byIdentity:@"SignNavi"];
         [self presentViewController:signNavi animated:YES completion:nil];
         }

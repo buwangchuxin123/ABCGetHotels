@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface UserModel : NSObject
-@property(nonatomic) NSInteger gender;
-@property(nonatomic)NSInteger tel;
-@property (strong, nonatomic)NSString *MemberId;
+@property(strong,nonatomic)NSString *gender;
+@property(strong,nonatomic)NSString *tel;
+@property(strong,nonatomic)NSString *idCard;
 @property(strong,nonatomic)NSString * nick_name;
+@property(strong,nonatomic)NSString *userId;
+
 -(id)initWithDictionary:(NSDictionary *)dict;
 @end
