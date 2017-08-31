@@ -20,7 +20,7 @@
 @property (strong,nonatomic)NSString *hotelId;
 
 @property (strong,nonatomic)NSArray *hotel_facilities;
-@property (strong,nonatomic)NSString *hotel_imgs;
+@property (strong,nonatomic)NSArray *hotel_imgs;
 @property (strong,nonatomic)NSString *in_time;
 @property (strong,nonatomic)NSString *latitude;
 @property (strong,nonatomic)NSString *longitude;
@@ -28,7 +28,7 @@
 @property (strong,nonatomic)NSString *out_time;
 @property (strong,nonatomic)NSArray *remarks;
 @property (strong,nonatomic)NSArray *hotel_types;
-
+@property (strong,nonatomic)NSString *is_pet;
 
 
 - (instancetype)initWithDict: (NSDictionary *)dict;

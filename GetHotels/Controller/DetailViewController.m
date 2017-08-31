@@ -10,18 +10,20 @@
 #import "HotelsModel.h"
 
 @interface DetailViewController (){
-    NSInteger pageNum;
-    NSInteger pageSize;
-    NSInteger startId;
-    NSInteger priceId;
+   NSTimeInterval StartTime;
+   NSTimeInterval EndTime;
+   NSInteger flag;
+    
 }
 @property (weak, nonatomic) IBOutlet UIView *adView;
 @property (weak, nonatomic) IBOutlet UILabel *hotelName;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UILabel *address;
-@property (weak, nonatomic) IBOutlet UIButton *starDayBtn;
+@property (weak, nonatomic) IBOutlet UIButton *StartDateBtn;
+@property (weak, nonatomic) IBOutlet UIButton *endDateBtn;
+
 @property (weak, nonatomic) IBOutlet UILabel *starDayLbl;
-@property (weak, nonatomic) IBOutlet UIButton *endDayBtn;
+
 @property (weak, nonatomic) IBOutlet UILabel *endDayLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *UIimage;
 @property (weak, nonatomic) IBOutlet UIButton *roomTypeBtn;
@@ -42,6 +44,12 @@
 - (IBAction)roomTypeAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)ChatAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)purchaseAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)startAction:(UIButton *)sender forEvent:(UIEvent *)event;
+
+- (IBAction)endAction:(UIButton *)sender forEvent:(UIEvent *)event;
+
+@property (weak, nonatomic) IBOutlet UIView *superView;
+
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UIDatePicker *dataPicker;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
@@ -114,11 +122,27 @@
     [_adView addSubview:imageViewDisplay];
     
 }
-
+/*
 -(void)uiLayout{
     _hotelName.text = _Hotel.hotel_name;
     _price.text = [NSString stringWithFormat:@"¥ %@",_Hotel.now_price];
     _address.text = _Hotel.hotel_address;
+    
+    NSDate *now = [NSDate date];//调用该行代码的时间
+    NSDateFormatter *nowformatter = [[NSDateFormatter alloc] init];
+    nowformatter.dateFormat = @"MM-dd";
+    NSString *thDate = [nowformatter stringFromDate:now];
+    //EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+    [_StartDateBtn setTitle:thDate forState:UIControlStateNormal];
+    
+    
+    NSDate *tomorrow = [NSDate dateTomorrow];
+    NSDateFormatter *tomoformatter = [[NSDateFormatter alloc] init];
+    tomoformatter.dateFormat = @"MM-dd";
+    NSString *tomoDate = [tomoformatter stringFromDate:tomorrow];
+  //  EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+    [_endDateBtn setTitle:tomoDate forState:UIControlStateNormal];
+    
     
     _UIimage.image = [UIImage imageNamed:@"酒店-1"];
     [ _roomTypeBtn setTitle: _Hotel.hotel_types[0] forState:UIControlStateNormal];
@@ -137,10 +161,22 @@
         if(i == 6){ _freeWifi.text = array[6];}
         if(i == 7){ _wakeUpLbl.text = array[7];}
     }
+    
+    _checkInTimeLbl.text = _Hotel.remarks[0];
+    _leaveTimeLbl.text = _Hotel.remarks[1];
+    NSInteger ispet = [_Hotel.is_pet integerValue];
+    if(ispet == 0){
+        _isCarrayPetLbl.text = @"不可以携带宠物";
+    }
+    if(ispet == 1){
+    _isCarrayPetLbl.text = @"可以携带宠物";
+    }
+    
 }
+ */
 - (void)netRequest{
     _avi = [Utilities getCoverOnView:self.view];
-    NSDictionary *para =  @{@"id":@1};
+    NSDictionary *para =  @{@"id":@2};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject:%@", responseObject);
         [_avi stopAnimating];
@@ -148,7 +184,7 @@
         if([responseObject[@"result"] integerValue] == 1){
             NSDictionary *content = responseObject[@"content"];
           _Hotel = [[HotelsModel alloc] initWithDetailDict:content];
-            [self uiLayout];
+          //  [self uiLayout];
             
                 [self addZLImageViewDisPlayView:_AdImgarr];
          
@@ -193,4 +229,58 @@
 
 - (IBAction)purchaseAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
+
+- (IBAction)startAction:(UIButton *)sender forEvent:(UIEvent *)event {
+     flag = 0;
+    _superView.hidden = NO;
+    _toolBar.hidden = NO;
+    _dataPicker.hidden = NO;
+    
+    
+}
+
+- (IBAction)endAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    flag = 1;
+    _superView.hidden = NO;
+    _toolBar.hidden = NO;
+    _dataPicker.hidden = NO;
+}
+
+- (IBAction)cancelAction:(UIBarButtonItem *)sender {
+    _toolBar.hidden = YES;
+    _dataPicker.hidden = YES;
+    _superView.hidden = YES;
+}
+- (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    if(flag == 0){
+    NSDate *date = _dataPicker.date;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"MM-dd";
+    NSString *thDate = [formatter stringFromDate:date];
+    
+    StartTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+    
+    [_StartDateBtn setTitle:thDate forState:UIControlStateNormal];
+    _superView.hidden = YES;
+    _toolBar.hidden = YES;
+    _dataPicker.hidden = YES;
+    }
+  if(flag == 1){
+    
+        NSDate *date = _dataPicker.date;
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"MM-dd";
+        NSString *thDate = [formatter stringFromDate:date];
+        
+        EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+        
+        [_endDateBtn setTitle:thDate forState:UIControlStateNormal];
+        _superView.hidden = YES;
+        _toolBar.hidden = YES;
+        _dataPicker.hidden = YES;
+    
+    }
+
+}
+
 @end

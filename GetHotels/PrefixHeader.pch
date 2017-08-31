@@ -22,4 +22,5 @@
 #import "NSString+Crypt.h"
 #import "ZLImageViewDisplayView.h"//轮播图片第三方
 #import "UIImageView+WebCache.h"//图片异步下载
+#import "NSDate+Utility.h"
 #endif /* PrefixHeader_pch */
