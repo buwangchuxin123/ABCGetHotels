@@ -10,18 +10,20 @@
 #import "HotelsModel.h"
 
 @interface DetailViewController (){
-    NSInteger pageNum;
-    NSInteger pageSize;
-    NSInteger startId;
-    NSInteger priceId;
+   NSTimeInterval StartTime;
+   NSTimeInterval EndTime;
+   NSInteger flag;
+    
 }
 @property (weak, nonatomic) IBOutlet UIView *adView;
 @property (weak, nonatomic) IBOutlet UILabel *hotelName;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UILabel *address;
-@property (weak, nonatomic) IBOutlet UIButton *starDayBtn;
+@property (weak, nonatomic) IBOutlet UIButton *StartDateBtn;
+@property (weak, nonatomic) IBOutlet UIButton *endDateBtn;
+
 @property (weak, nonatomic) IBOutlet UILabel *starDayLbl;
-@property (weak, nonatomic) IBOutlet UIButton *endDayBtn;
+
 @property (weak, nonatomic) IBOutlet UILabel *endDayLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *UIimage;
 @property (weak, nonatomic) IBOutlet UIButton *roomTypeBtn;
@@ -42,20 +44,20 @@
 - (IBAction)roomTypeAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)ChatAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)purchaseAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)startAction:(UIButton *)sender forEvent:(UIEvent *)event;
+
+- (IBAction)endAction:(UIButton *)sender forEvent:(UIEvent *)event;
+
+@property (weak, nonatomic) IBOutlet UIView *superView;
+
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UIDatePicker *dataPicker;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 
-@property (strong,nonatomic)NSString *sortingId;
-@property (strong,nonatomic)NSString *wxlongitude;
-@property (strong,nonatomic)NSString *wxlatitude;
-@property (strong,nonatomic)NSString *city_name;
-@property (strong,nonatomic)NSString *inTime;
-@property (strong,nonatomic)NSString *outTime;
 
-@property (strong, nonatomic) NSMutableArray *firstResArr;
+
 @property (strong, nonatomic) NSMutableArray *AdImgarr;
-@property (strong, nonatomic) NSMutableArray *AdImgarr1;
+
 @end
 
 @implementation DetailViewController
@@ -64,23 +66,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    _AdImgarr  =   [NSMutableArray new];
-    _firstResArr = [NSMutableArray new];
-    _AdImgarr1  = [[NSMutableArray alloc]initWithObjects:@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png",@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png",@"http://ac-tscmo0vq.clouddn.com/1cbe1d0ad3bae6214d59.jpg",@"http://ac-tscmo0vq.clouddn.com/b3ca642f7a9297e907c7.jpg",@"http://ac-tscmo0vq.clouddn.com/5c1f5d0dd16e0888ecd0.jpg",nil];
+    _AdImgarr  =   [[NSMutableArray alloc] initWithObjects:@"酒店通用6",@"酒店通用5",@"酒店通用3",@"酒店通用4",nil];
+  
+    
 
-    pageNum = 1;
-    pageSize = 10;
-    startId = 1;
-    priceId = 1;
-    _sortingId = @"1";
-    _city_name = @"无锡";
-    _wxlongitude = @"120.300000";
-    _wxlatitude = @"31.570000";
-    _inTime = @"2017-08-25";
-    _outTime = @"2017-08-26";
     [self naviConfig];
-   // [self netRequest];
-    [self addZLImageViewDisPlayView:_AdImgarr1];
+     [self netRequest];
+    [self addZLImageViewDisPlayView:_AdImgarr];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,7 +113,7 @@
 -(void) addZLImageViewDisPlayView:(NSArray *)arr{
     
     
-    CGRect frame = CGRectMake(0,0, UI_SCREEN_W, 160);
+    CGRect frame = CGRectMake(0,0, UI_SCREEN_W, 180);
     //初始化控件
     ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
     imageViewDisplay.imageViewArray = arr;
@@ -131,37 +123,102 @@
     
 }
 
+-(void)uiLayout{
+//    NSArray *arr = _Hotel.hotel_imgs;
+//    for(NSString*str in arr)
+//    {
+//        [_AdImgarr addObject:str];
+//    }
+    
+    _hotelName.text = _Hotel.hotel_name;
+    _price.text = [NSString stringWithFormat:@"¥ %@",_Hotel.now_price];
+    _address.text = _Hotel.hotel_address;
+    
+    NSDate *now = [NSDate date];//调用该行代码的时间
+    NSDateFormatter *nowformatter = [[NSDateFormatter alloc] init];
+    nowformatter.dateFormat = @"MM-dd";
+    NSString *thDate = [nowformatter stringFromDate:now];
+    //EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+    [_StartDateBtn setTitle:thDate forState:UIControlStateNormal];
+    
+    
+    NSDate *tomorrow = [NSDate dateTomorrow];
+    NSDateFormatter *tomoformatter = [[NSDateFormatter alloc] init];
+    tomoformatter.dateFormat = @"MM-dd";
+    NSString *tomoDate = [tomoformatter stringFromDate:tomorrow];
+  //  EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+    [_endDateBtn setTitle:tomoDate forState:UIControlStateNormal];
+    NSURL *URL = [NSURL URLWithString:_Hotel.hotel_img];
+    [_UIimage sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"大床房"] ];
+  //  _UIimage.image = [UIImage imageNamed:@"酒店-1"];
+    [ _roomTypeBtn setTitle: _Hotel.hotel_types[0] forState:UIControlStateNormal];
+    _breakfastLbl.text = _Hotel.hotel_types[1];
+    _bedTypeLbl.text = _Hotel.hotel_types[2];
+    _roomArea.text = _Hotel.hotel_types[3];
+    
+    NSArray *array = _Hotel.hotel_facilities;
+    for(int i = 0;i< array.count;i++){
+        if(i == 0){ _parkLbl.text = array[0];}
+        if(i == 1){ _pickUpLbl.text = array[1];}
+        if(i == 2){ _fitnessLbl.text = array[2];}
+        if(i == 3){ _freeProductLbl.text = array[3];}
+        if(i == 4){ _luggageLbl.text = array[4];}
+        if(i == 5){ _restaurantLbl.text = array[5];}
+        if(i == 6){ _freeWifi.text = array[6];}
+        if(i == 7){ _wakeUpLbl.text = array[7];}
+    }
+    
+    _checkInTimeLbl.text = _Hotel.remarks[0];
+    _leaveTimeLbl.text = _Hotel.remarks[1];
+    NSInteger ispet = [_Hotel.is_pet integerValue];
+    if(ispet == 0){
+        _isCarrayPetLbl.text = @"不可以携带宠物";
+    }
+    if(ispet == 1){
+    _isCarrayPetLbl.text = @"可以携带宠物";
+    }
+    
+}
+ 
 - (void)netRequest{
     _avi = [Utilities getCoverOnView:self.view];
-    NSDictionary *para =  @{@"city_name":_city_name,@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"startId":@(startId),@"priceId":@(priceId),@"sortingId":_sortingId,@"inTime":_inTime,@"outTime":_outTime,@"wxlatitude":_wxlatitude ,@"wxlongitude":_wxlongitude};
-    [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+      NSNumber *ID = @-1 ;
+            if ([[StorageMgr singletonStorageMgr] objectForKey:@"sendId"] != nil) {
+          ID = [[StorageMgr singletonStorageMgr]objectForKey:@"sendId"] ;
+            }else{
+                [Utilities popUpAlertViewWithMsg:@"Id错误，请稍后再试" andTitle:nil onView:self];
+            }
+    NSDictionary *para =  @{@"id":ID};
+            
+    [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject:%@", responseObject);
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){
             NSDictionary *content = responseObject[@"content"];
-            NSArray *result = content[@"hotel"][@"list"];
-            NSArray *Adarr  = content[@"advertising"];
-            for (NSDictionary *dict in Adarr) {
-                HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-           //     [ self.AdImgarr addObject:resultModel.AdImg];
-                NSLog(@"网址：%@",resultModel.AdImg);
-                
-                //  [_AdImgarr addObject:dict[@"ad_img"]];
-                // _AdImgarr = dict[@"ad_img"];//copy;
-                     NSLog(@"网址是：%@",dict[@"ad_img"]);
-                
+            _Hotel = [[HotelsModel alloc] initWithDetailDict:content];
+            NSArray *arr = _Hotel.hotel_imgs;
+            for(NSString*str in arr)
+            {
+                [_AdImgarr addObject:str];
             }
-            for (NSDictionary *dict in result) {
-                HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-                //  NSLog(@"结果：%@",resultModel.hotel_name);
-                //  NSLog(@"距离：%@",resultModel.distance);
-                //  NSLog(@"图片地址：%@",resultModel.hotel_img);
-             //   [_firstResArr addObject:resultModel];
+            [self uiLayout];
+            for(NSString * str in _AdImgarr){
+                NSLog(@"数组里的是：%@",str);
             }
             
-         //   [_hotelsTableView reloadData];
-            
+                [self addZLImageViewDisPlayView:_AdImgarr];
+         
+//            for (NSDictionary *dict in result) {
+//                HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
+//                //  NSLog(@"结果：%@",resultModel.hotel_name);
+//                //  NSLog(@"距离：%@",resultModel.distance);
+//                //  NSLog(@"图片地址：%@",resultModel.hotel_img);
+//             //   [_firstResArr addObject:resultModel];
+//           }
+//            
+//         //   [_hotelsTableView reloadData];
+//            
         }else{
             //业务逻辑失败的情况下
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
@@ -184,6 +241,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+////当某一个页面跳转行为将要发生的时候
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    if ([segue.identifier isEqualToString:@"List2Detail"]) {
+//        //当列表页到详情页的这个跳转要发生的时候
+//        //1.获取要传递到下一页的数据
+//        NSIndexPath *indexPath = [_activityTableView indexPathForSelectedRow];
+//        ActivityModel *activity = _arr[indexPath.row];
+//        //2.获取下一页的实例
+//        DetailViewController *detailVC = segue.destinationViewController;
+//        //3.把数据给下一页预备好的接收容器
+//        detailVC.activity = activity;
+//    }
+//}
 
 - (IBAction)roomTypeAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
@@ -193,4 +263,58 @@
 
 - (IBAction)purchaseAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
+
+- (IBAction)startAction:(UIButton *)sender forEvent:(UIEvent *)event {
+     flag = 0;
+    _superView.hidden = NO;
+    _toolBar.hidden = NO;
+    _dataPicker.hidden = NO;
+    
+    
+}
+
+- (IBAction)endAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    flag = 1;
+    _superView.hidden = NO;
+    _toolBar.hidden = NO;
+    _dataPicker.hidden = NO;
+}
+
+- (IBAction)cancelAction:(UIBarButtonItem *)sender {
+    _toolBar.hidden = YES;
+    _dataPicker.hidden = YES;
+    _superView.hidden = YES;
+}
+- (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    if(flag == 0){
+    NSDate *date = _dataPicker.date;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"MM-dd";
+    NSString *thDate = [formatter stringFromDate:date];
+    
+    StartTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+    
+    [_StartDateBtn setTitle:thDate forState:UIControlStateNormal];
+    _superView.hidden = YES;
+    _toolBar.hidden = YES;
+    _dataPicker.hidden = YES;
+    }
+  if(flag == 1){
+    
+        NSDate *date = _dataPicker.date;
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"MM-dd";
+        NSString *thDate = [formatter stringFromDate:date];
+        
+        EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+        
+        [_endDateBtn setTitle:thDate forState:UIControlStateNormal];
+        _superView.hidden = YES;
+        _toolBar.hidden = YES;
+        _dataPicker.hidden = YES;
+    
+    }
+
+}
+
 @end

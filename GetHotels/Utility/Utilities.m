@@ -103,6 +103,27 @@
     });
     return imageDownloaded;
 }
+//+ (NSString *)nullAndNilCheck:(id)target replaceBy:(NSString *)replacement {
+//    if ([target isKindOfClass:[NSNull class]]) {
+//        return replacement;
+//    } else {
+//        if (target == nil) {
+//            return replacement;
+//        } else {
+//            if ([target isKindOfClass:[NSString class]]) {
+//                if ([target isEqualToString:@""]) {
+//                    return replacement;
+//                } else {
+//                    return target;
+//                }
+//            } else {
+//                return [target stringValue];
+//            }
+//        }
+//    }
+//}
+
+
 
 + (NSString *)nullAndNilCheck:(id)target replaceBy:(NSString *)replacement {
     if ([target isKindOfClass:[NSNull class]]) {
@@ -118,7 +139,7 @@
                     return target;
                 }
             } else {
-                return [target stringValue];
+                return [target stringValue] ;
             }
         }
     }

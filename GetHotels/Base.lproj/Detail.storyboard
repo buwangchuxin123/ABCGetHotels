@@ -553,7 +553,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fga-xR-go0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1735" y="-1839"/>
+            <point key="canvasLocation" x="1303" y="-1865"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="ZYj-dZ-fOc">
@@ -662,55 +662,67 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TsS-Tc-6PX">
-                                        <rect key="frame" x="0.0" y="246" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="246" width="375" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODx-YR-Xfs">
-                                                <rect key="frame" x="40" y="0.0" width="62" height="30"/>
-                                                <state key="normal" title="2月24日 ">
-                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BY4-Wg-MPy">
-                                                <rect key="frame" x="243" y="0.0" width="58" height="30"/>
-                                                <state key="normal" title="2月25日">
-                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="明天    ＞" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIz-fG-f2y">
-                                                <rect key="frame" x="305.5" y="7" width="54.5" height="16"/>
+                                                <rect key="frame" x="305.5" y="12" width="54.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天    ＞" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7w-sE-g6Z">
-                                                <rect key="frame" x="107" y="6.5" width="54.5" height="16"/>
+                                                <rect key="frame" x="110" y="12" width="54.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0Y-uX-KIJ">
+                                                <rect key="frame" x="15" y="5" width="80" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="ZeF-Lt-s3U"/>
+                                                </constraints>
+                                                <state key="normal" title="1月1日">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="startAction:forEvent:" destination="iJh-Wv-Phh" eventType="touchUpInside" id="Nd5-Mg-lZs"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jDs-v7-ywj">
+                                                <rect key="frame" x="210.5" y="5" width="80" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="ZnZ-Cz-vm0"/>
+                                                </constraints>
+                                                <state key="normal" title="1月2日">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="endAction:forEvent:" destination="iJh-Wv-Phh" eventType="touchUpInside" id="o2j-CZ-35a"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="x7w-sE-g6Z" firstAttribute="centerY" secondItem="ODx-YR-Xfs" secondAttribute="centerY" id="24C-rS-233"/>
-                                            <constraint firstItem="PIz-fG-f2y" firstAttribute="centerY" secondItem="BY4-Wg-MPy" secondAttribute="centerY" id="Cp9-LX-kgk"/>
+                                            <constraint firstItem="x7w-sE-g6Z" firstAttribute="leading" secondItem="o0Y-uX-KIJ" secondAttribute="trailing" constant="15" id="1oe-Oz-bdl"/>
                                             <constraint firstAttribute="trailing" secondItem="PIz-fG-f2y" secondAttribute="trailing" constant="15" id="HpT-iq-HzK"/>
-                                            <constraint firstAttribute="height" constant="30" id="OZ2-la-aUI"/>
-                                            <constraint firstItem="PIz-fG-f2y" firstAttribute="leading" secondItem="BY4-Wg-MPy" secondAttribute="trailing" constant="5" id="TvK-ZB-qoz"/>
-                                            <constraint firstItem="x7w-sE-g6Z" firstAttribute="leading" secondItem="ODx-YR-Xfs" secondAttribute="trailing" constant="5" id="V6V-Fv-o6W"/>
-                                            <constraint firstItem="ODx-YR-Xfs" firstAttribute="centerY" secondItem="TsS-Tc-6PX" secondAttribute="centerY" id="scP-Yd-VlA"/>
-                                            <constraint firstItem="ODx-YR-Xfs" firstAttribute="leading" secondItem="TsS-Tc-6PX" secondAttribute="leading" constant="40" id="y7i-5m-QKa"/>
+                                            <constraint firstItem="jDs-v7-ywj" firstAttribute="centerY" secondItem="TsS-Tc-6PX" secondAttribute="centerY" id="OJM-Hp-pdN"/>
+                                            <constraint firstAttribute="height" constant="40" id="OZ2-la-aUI"/>
+                                            <constraint firstItem="o0Y-uX-KIJ" firstAttribute="leading" secondItem="TsS-Tc-6PX" secondAttribute="leading" constant="15" id="Pku-B3-GYR"/>
+                                            <constraint firstItem="o0Y-uX-KIJ" firstAttribute="centerY" secondItem="TsS-Tc-6PX" secondAttribute="centerY" id="eGI-Jr-hvG"/>
+                                            <constraint firstItem="PIz-fG-f2y" firstAttribute="leading" secondItem="jDs-v7-ywj" secondAttribute="trailing" constant="15" id="g91-NB-jst"/>
+                                            <constraint firstItem="x7w-sE-g6Z" firstAttribute="centerY" secondItem="o0Y-uX-KIJ" secondAttribute="centerY" id="jaq-3s-dWd"/>
                                             <constraint firstItem="PIz-fG-f2y" firstAttribute="centerY" secondItem="TsS-Tc-6PX" secondAttribute="centerY" id="yMT-tj-HmN"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sdd-dc-R5R">
-                                        <rect key="frame" x="0.0" y="276" width="375" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="286" width="375" height="0.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="cs8-Br-gfo"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SK4-88-fhP">
-                                        <rect key="frame" x="0.0" y="276.5" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="286.5" width="375" height="100"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="酒店-1" translatesAutoresizingMaskIntoConstraints="NO" id="hzy-yr-jvS">
                                                 <rect key="frame" x="15" y="18" width="80" height="64"/>
@@ -721,7 +733,9 @@
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-PX-hxt">
                                                 <rect key="frame" x="115" y="15" width="77" height="30"/>
-                                                <state key="normal" title="豪华大床房"/>
+                                                <state key="normal" title="豪华大床房">
+                                                    <color key="titleColor" red="0.090196078430000007" green="0.48627450979999998" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="roomTypeAction:forEvent:" destination="iJh-Wv-Phh" eventType="touchUpInside" id="bDY-5g-UHP"/>
                                                 </connections>
@@ -761,7 +775,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcv-Gy-vS6">
-                                        <rect key="frame" x="0.0" y="376.5" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="386.5" width="375" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="酒店设施" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdg-qj-8WV">
                                                 <rect key="frame" x="15" y="4.5" width="69.5" height="21"/>
@@ -778,52 +792,52 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxD-78-8tx">
-                                        <rect key="frame" x="0.0" y="406.5" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="416.5" width="375" height="80"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费停车场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iuf-ds-4nh">
-                                                <rect key="frame" x="15" y="12" width="66.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iuf-ds-4nh">
+                                                <rect key="frame" x="15" y="20" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接机服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qs-Ue-NKN">
-                                                <rect key="frame" x="15" y="32" width="53.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qs-Ue-NKN">
+                                                <rect key="frame" x="15" y="40" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接机服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DV3-JJ-ZNx">
-                                                <rect key="frame" x="15" y="52" width="53.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DV3-JJ-ZNx">
+                                                <rect key="frame" x="15" y="60" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费停车场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dO4-7H-1Fc">
-                                                <rect key="frame" x="154" y="12" width="66.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dO4-7H-1Fc">
+                                                <rect key="frame" x="187.5" y="20" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="餐厅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6K-mQ-Chc">
-                                                <rect key="frame" x="154" y="52" width="27" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6K-mQ-Chc">
+                                                <rect key="frame" x="187.5" y="60" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="行李寄存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YE0-2Y-5tp">
-                                                <rect key="frame" x="154" y="32" width="53.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YE0-2Y-5tp">
+                                                <rect key="frame" x="187.5" y="40" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费wifi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybN-sR-rYS">
-                                                <rect key="frame" x="312.5" y="12" width="47.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybN-sR-rYS">
+                                                <rect key="frame" x="360" y="20" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接机服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mac-Z4-E9W">
-                                                <rect key="frame" x="312.5" y="32" width="53.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mac-Z4-E9W">
+                                                <rect key="frame" x="360" y="40" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -851,7 +865,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRk-6w-SRM">
-                                        <rect key="frame" x="0.0" y="486.5" width="375" height="25"/>
+                                        <rect key="frame" x="0.0" y="496.5" width="375" height="25"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="酒店政策" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKE-Pa-Bb6">
                                                 <rect key="frame" x="15" y="2" width="69.5" height="21"/>
@@ -868,7 +882,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9e9-Dx-1ZI">
-                                        <rect key="frame" x="0.0" y="511.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="521.5" width="375" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="入住时间： 12点以后" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1z-Zc-lPc">
                                                 <rect key="frame" x="15" y="1.5" width="142" height="18"/>
@@ -893,7 +907,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9YC-VM-yg2">
-                                        <rect key="frame" x="0.0" y="551.5" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="561.5" width="375" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宠物" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkh-Ge-JGn">
                                                 <rect key="frame" x="15" y="5" width="35" height="21"/>
@@ -910,7 +924,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qJB-wM-mnu">
-                                        <rect key="frame" x="0.0" y="581.5" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="591.5" width="375" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不能携带宠物" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08F-z2-bs8">
                                                 <rect key="frame" x="15" y="8.5" width="74" height="14.5"/>
@@ -980,9 +994,17 @@
                                     <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9q0-jX-QWh">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                         <items>
-                                            <barButtonItem title="取消" id="knb-Kz-Tk4"/>
+                                            <barButtonItem title="取消" id="knb-Kz-Tk4">
+                                                <connections>
+                                                    <action selector="cancelAction:" destination="iJh-Wv-Phh" id="qOM-OJ-6vI"/>
+                                                </connections>
+                                            </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="aqR-UM-dP1"/>
-                                            <barButtonItem title="确认" id="3MT-wy-iDX"/>
+                                            <barButtonItem title="确认" id="3MT-wy-iDX">
+                                                <connections>
+                                                    <action selector="confirmAction:" destination="iJh-Wv-Phh" id="3Lz-Nb-qhi"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </items>
                                     </toolbar>
                                     <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="2Vq-P5-AJF">
@@ -1070,6 +1092,7 @@
                     <navigationItem key="navigationItem" id="sR1-Nc-oYW"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="StartDateBtn" destination="o0Y-uX-KIJ" id="gpb-7i-qVU"/>
                         <outlet property="UIimage" destination="hzy-yr-jvS" id="87c-j1-u88"/>
                         <outlet property="adView" destination="6he-Ty-Vqe" id="nEX-kG-nnc"/>
                         <outlet property="address" destination="KPt-nL-5t3" id="erh-wz-0Yd"/>
@@ -1077,7 +1100,7 @@
                         <outlet property="breakfastLbl" destination="q8Z-wZ-2Xy" id="Epb-t5-Vfi"/>
                         <outlet property="checkInTimeLbl" destination="h1z-Zc-lPc" id="RT6-LO-ffO"/>
                         <outlet property="dataPicker" destination="2Vq-P5-AJF" id="aEu-38-yH2"/>
-                        <outlet property="endDayBtn" destination="BY4-Wg-MPy" id="ddM-TD-OKj"/>
+                        <outlet property="endDateBtn" destination="jDs-v7-ywj" id="4tg-Tw-FYO"/>
                         <outlet property="endDayLbl" destination="PIz-fG-f2y" id="fNd-kl-KzK"/>
                         <outlet property="fitnessLbl" destination="DV3-JJ-ZNx" id="Mi1-13-3oz"/>
                         <outlet property="freeProductLbl" destination="dO4-7H-1Fc" id="fb9-sa-Apa"/>
@@ -1092,15 +1115,15 @@
                         <outlet property="restaurantLbl" destination="n6K-mQ-Chc" id="47K-zV-w4m"/>
                         <outlet property="roomArea" destination="UCU-yW-Sv4" id="dXm-rJ-vYC"/>
                         <outlet property="roomTypeBtn" destination="3kZ-PX-hxt" id="JTL-vf-raj"/>
-                        <outlet property="starDayBtn" destination="ODx-YR-Xfs" id="v8t-Fo-VMg"/>
                         <outlet property="starDayLbl" destination="x7w-sE-g6Z" id="Sdi-eI-uEs"/>
+                        <outlet property="superView" destination="iL5-T8-7kz" id="3WT-Os-X0r"/>
                         <outlet property="toolBar" destination="9q0-jX-QWh" id="KJV-jW-pyp"/>
                         <outlet property="wakeUpLbl" destination="Mac-Z4-E9W" id="z1L-ue-IXg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QRv-ai-f7T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="871" y="-1846"/>
+            <point key="canvasLocation" x="447" y="-1865"/>
         </scene>
     </scenes>
     <resources>
