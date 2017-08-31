@@ -122,7 +122,7 @@
     [_adView addSubview:imageViewDisplay];
     
 }
-/*
+
 -(void)uiLayout{
     _hotelName.text = _Hotel.hotel_name;
     _price.text = [NSString stringWithFormat:@"¥ %@",_Hotel.now_price];
@@ -173,7 +173,7 @@
     }
     
 }
- */
+ 
 - (void)netRequest{
     _avi = [Utilities getCoverOnView:self.view];
     NSDictionary *para =  @{@"id":@2};
@@ -184,7 +184,7 @@
         if([responseObject[@"result"] integerValue] == 1){
             NSDictionary *content = responseObject[@"content"];
           _Hotel = [[HotelsModel alloc] initWithDetailDict:content];
-          //  [self uiLayout];
+            [self uiLayout];
             
                 [self addZLImageViewDisPlayView:_AdImgarr];
          
