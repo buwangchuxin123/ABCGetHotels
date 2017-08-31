@@ -117,27 +117,47 @@
     return 1.f;
 }
 
- //按住细胞以后（取消选择）
- - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
- [tableView deselectRowAtIndexPath:indexPath animated:YES];
-     if (indexPath.section == 0) {
-         if ([Utilities loginCheck]) {
-        switch (indexPath.row) {
-            case 0:{
-                [self performSegueWithIdentifier:@"myInfoToHotels" sender:self];
+// //按住细胞以后（取消选择）
+// - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//     //取消选择
+// [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//     if (indexPath.section == 0) {
+//         if ([Utilities loginCheck]) {
+//        switch (indexPath.row) {
+//            case 0:{
+//                [self performSegueWithIdentifier:@"myInfoToHotels" sender:self];
+//            }
+//                break;
+//                   break;
+//            default:
+//                break;
+// }
+// }
+//按住细胞以后（取消选择）
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //取消选择
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([Utilities loginCheck]) {
+    if (indexPath.section == 0) {
+        
+            switch (indexPath.row) {
+                case 0:{
+                    [self performSegueWithIdentifier:@"myInfoToHotels" sender:self];
+                }
+                    break;
+                    break;
+                default:
+                    break;
             }
-                break;
-                   break;
-            default:
-                break;
- }
- }
+    }
+        
+    }
  else{
     UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Myinfo" byIdentity:@"SignNavi"];
         [self presentViewController:signNavi animated:YES completion:nil];
         }
  }
- }
+ 
  
 
 - (IBAction)LoginBtn:(UIButton *)sender forEvent:(UIEvent *)event {

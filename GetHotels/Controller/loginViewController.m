@@ -71,7 +71,8 @@
 }
 //用model的方式返回上一页
 -(void)backAction{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 -(void)uiLayout{
     if (![[Utilities getUserDefaults:@"nick_name"]isKindOfClass:[NSNull class]]) {

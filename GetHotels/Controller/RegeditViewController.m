@@ -52,8 +52,9 @@
 }
 //用model的方式返回上一页
 - (void)backAction{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    //[self.navigationController popViewControllerAnimated:YES];//用push返回上一页
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+    //用push返回上一页
 }
 - (void)setShadow {
     
@@ -84,7 +85,7 @@
             NSLog(@"responseObject:%@", responseObject);
             [Utilities popUpAlertViewWithMsg:@"恭喜你注册成功" andTitle:nil onView:self];
             //[self dismissViewControllerAnimated:YES completion:nil];
-            [self performSegueWithIdentifier:@"regToLogin" sender:self];
+            [self performSegueWithIdentifier:@"regToLogin" sender:nil];
         } else{
             [_avi stopAnimating];
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject [@"result"]integerValue]];
