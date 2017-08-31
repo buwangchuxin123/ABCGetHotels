@@ -141,29 +141,28 @@
          if ([self verifyURL:imageName]){
                 NSURL *url = [NSURL URLWithString:imageName];
              
-             
-             NSString *userAgent = @"";
-             userAgent = [NSString stringWithFormat:@"%@/%@ (%@; iOS %@; Scale/%0.2f)", [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleExecutableKey] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleIdentifierKey], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey], [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion], [[UIScreen mainScreen] scale]];
-             
-             if (userAgent) {
-                 if (![userAgent canBeConvertedToEncoding:NSASCIIStringEncoding]) {
-                     NSMutableString *mutableUserAgent = [userAgent mutableCopy];
-                     if (CFStringTransform((__bridge CFMutableStringRef)(mutableUserAgent), NULL, (__bridge CFStringRef)@"Any-Latin; Latin-ASCII; [:^ASCII:] Remove", false)) {
-                         userAgent = mutableUserAgent;
-                     }
-                 }
-                 [[SDWebImageDownloader sharedDownloader] setValue:userAgent forHTTPHeaderField:@"User-Agent"];
-             }
+//             
+//             NSString *userAgent = @"";
+//             userAgent = [NSString stringWithFormat:@"%@/%@ (%@; iOS %@; Scale/%0.2f)", [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleExecutableKey] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleIdentifierKey], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey], [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion], [[UIScreen mainScreen] scale]];
+//             
+//             if (userAgent) {
+//                 if (![userAgent canBeConvertedToEncoding:NSASCIIStringEncoding]) {
+//                     NSMutableString *mutableUserAgent = [userAgent mutableCopy];
+//                     if (CFStringTransform((__bridge CFMutableStringRef)(mutableUserAgent), NULL, (__bridge CFStringRef)@"Any-Latin; Latin-ASCII; [:^ASCII:] Remove", false)) {
+//                         userAgent = mutableUserAgent;
+//                     }
+//                 }
+//                 [[SDWebImageDownloader sharedDownloader] setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+//             }
 
              
                 [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
         //        [tempImageView sd_setImageWithURL:url
         //                         placeholderImage:[UIImage imageNamed:@"酒店-1"]];
-             
-//             [tempImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店-1"] options:SDWebImageRetryFailed];
+  
              
              [tempImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店-1"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                   NSLog(@"=====error=%@",error);
+                  // NSLog(@"=====error=%@",error);
              }];
              
                 
@@ -171,7 +170,7 @@
                 UIImage *imageTemp = [UIImage imageNamed:imageName];
                 [tempImageView setImage:imageTemp];
                 
-                //NSLog(@"我是空的");
+                NSLog(@"我不是网址");
             }
             
             
@@ -188,8 +187,8 @@
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     BOOL isMatch = [pred evaluateWithObject:url];
-    return isMatch;
-   
+     return isMatch;
+    //return YES;
 }
 
 - (void) addTimerLoop{

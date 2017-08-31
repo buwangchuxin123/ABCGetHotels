@@ -164,7 +164,7 @@
     _avi = [Utilities getCoverOnView:self.view];
     NSDictionary *para =  @{@"city_name":_city_name,@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"startId":@(startId),@"priceId":@(priceId),@"sortingId":_sortingId,@"inTime":_inTime,@"outTime":_outTime,@"wxlatitude":_wxlatitude ,@"wxlongitude":_wxlongitude};
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-     //   NSLog(@"responseObject:%@", responseObject);
+      NSLog(@"responseObject:%@", responseObject);
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){
@@ -332,6 +332,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
           //[self.navigationController popViewControllerAnimated:YES];
+    HotelsModel *model = _firstResArr[indexPath.row];
+    NSString *sendId = model.hotelId ;
+    [[StorageMgr singletonStorageMgr] addKey:@"sendId" andValue:sendId];
     }
     
     

@@ -55,7 +55,7 @@
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 
 
-@property (strong, nonatomic) NSMutableArray *firstResArr;
+
 @property (strong, nonatomic) NSMutableArray *AdImgarr;
 
 @end
@@ -66,8 +66,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    _AdImgarr  =   [NSMutableArray new];
-    _firstResArr = [NSMutableArray new];
+    _AdImgarr  =   [[NSMutableArray alloc] initWithObjects:@"酒店通用6",@"酒店通用5",@"酒店通用3",@"酒店通用4",nil];
+  
     
 
     [self naviConfig];
@@ -113,7 +113,7 @@
 -(void) addZLImageViewDisPlayView:(NSArray *)arr{
     
     
-    CGRect frame = CGRectMake(0,0, UI_SCREEN_W, 160);
+    CGRect frame = CGRectMake(0,0, UI_SCREEN_W, 180);
     //初始化控件
     ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
     imageViewDisplay.imageViewArray = arr;
@@ -124,6 +124,12 @@
 }
 
 -(void)uiLayout{
+//    NSArray *arr = _Hotel.hotel_imgs;
+//    for(NSString*str in arr)
+//    {
+//        [_AdImgarr addObject:str];
+//    }
+    
     _hotelName.text = _Hotel.hotel_name;
     _price.text = [NSString stringWithFormat:@"¥ %@",_Hotel.now_price];
     _address.text = _Hotel.hotel_address;
@@ -142,9 +148,9 @@
     NSString *tomoDate = [tomoformatter stringFromDate:tomorrow];
   //  EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
     [_endDateBtn setTitle:tomoDate forState:UIControlStateNormal];
-    
-    
-    _UIimage.image = [UIImage imageNamed:@"酒店-1"];
+    NSURL *URL = [NSURL URLWithString:_Hotel.hotel_img];
+    [_UIimage sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"大床房"] ];
+  //  _UIimage.image = [UIImage imageNamed:@"酒店-1"];
     [ _roomTypeBtn setTitle: _Hotel.hotel_types[0] forState:UIControlStateNormal];
     _breakfastLbl.text = _Hotel.hotel_types[1];
     _bedTypeLbl.text = _Hotel.hotel_types[2];
@@ -176,15 +182,30 @@
  
 - (void)netRequest{
     _avi = [Utilities getCoverOnView:self.view];
-    NSDictionary *para =  @{@"id":@2};
+      NSNumber *ID = @-1 ;
+            if ([[StorageMgr singletonStorageMgr] objectForKey:@"sendId"] != nil) {
+          ID = [[StorageMgr singletonStorageMgr]objectForKey:@"sendId"] ;
+            }else{
+                [Utilities popUpAlertViewWithMsg:@"Id错误，请稍后再试" andTitle:nil onView:self];
+            }
+    NSDictionary *para =  @{@"id":ID};
+            
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject:%@", responseObject);
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){
             NSDictionary *content = responseObject[@"content"];
-          _Hotel = [[HotelsModel alloc] initWithDetailDict:content];
+            _Hotel = [[HotelsModel alloc] initWithDetailDict:content];
+            NSArray *arr = _Hotel.hotel_imgs;
+            for(NSString*str in arr)
+            {
+                [_AdImgarr addObject:str];
+            }
             [self uiLayout];
+            for(NSString * str in _AdImgarr){
+                NSLog(@"数组里的是：%@",str);
+            }
             
                 [self addZLImageViewDisPlayView:_AdImgarr];
          
@@ -220,6 +241,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+////当某一个页面跳转行为将要发生的时候
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    if ([segue.identifier isEqualToString:@"List2Detail"]) {
+//        //当列表页到详情页的这个跳转要发生的时候
+//        //1.获取要传递到下一页的数据
+//        NSIndexPath *indexPath = [_activityTableView indexPathForSelectedRow];
+//        ActivityModel *activity = _arr[indexPath.row];
+//        //2.获取下一页的实例
+//        DetailViewController *detailVC = segue.destinationViewController;
+//        //3.把数据给下一页预备好的接收容器
+//        detailVC.activity = activity;
+//    }
+//}
 
 - (IBAction)roomTypeAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
