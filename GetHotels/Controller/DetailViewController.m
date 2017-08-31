@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "HotelsModel.h"
+#import "PayViewController.h"
 
 @interface DetailViewController (){
    NSTimeInterval StartTime;
@@ -106,6 +107,7 @@
 }
 //自定的返回按钮的事件
 - (void)leftButtonAction: (UIButton *)sender{
+    
      [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -138,7 +140,7 @@
     NSDateFormatter *nowformatter = [[NSDateFormatter alloc] init];
     nowformatter.dateFormat = @"MM-dd";
     NSString *thDate = [nowformatter stringFromDate:now];
-    //EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+    [[StorageMgr singletonStorageMgr] addKey:@"startTime" andValue:thDate];
     [_StartDateBtn setTitle:thDate forState:UIControlStateNormal];
     
     
@@ -146,7 +148,7 @@
     NSDateFormatter *tomoformatter = [[NSDateFormatter alloc] init];
     tomoformatter.dateFormat = @"MM-dd";
     NSString *tomoDate = [tomoformatter stringFromDate:tomorrow];
-  //  EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+    [[StorageMgr singletonStorageMgr] addKey:@"endTime" andValue:tomoDate];
     [_endDateBtn setTitle:tomoDate forState:UIControlStateNormal];
     NSURL *URL = [NSURL URLWithString:_Hotel.hotel_img];
     [_UIimage sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"大床房"] ];
@@ -256,12 +258,30 @@
 //}
 
 - (IBAction)roomTypeAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    [Utilities popUpAlertViewWithMsg:@"豪华大床房，你值得拥有" andTitle:@"提示" onView:self];
 }
 
 - (IBAction)ChatAction:(UIButton *)sender forEvent:(UIEvent *)event {
+     [Utilities popUpAlertViewWithMsg:@"小九还未上线，敬请期待" andTitle:@"提示" onView:self];
 }
 
 - (IBAction)purchaseAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    if(1){//[Utilities loginCheck]
+        //1.获得要跳转的页面的实例
+        PayViewController *PayVc = [Utilities getStoryboardInstance:@"Detail" byIdentity:@"Pay"];
+        UINavigationController *Pc = [[UINavigationController alloc] initWithRootViewController:PayVc];
+        //2.用某种方式跳转到上述页面（这里用Model方式跳转）
+       [self presentViewController:Pc animated:YES completion:nil];
+        //push跳转
+        //[self.navigationController pushViewController:Pc animated:YES];
+        // [self.navigationController popViewControllerAnimated:YES];
+          PayVc.payModel = _Hotel;
+    }else{
+        UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Myinfo" byIdentity:@"SignNavi"];
+        [self presentViewController:signNavi animated:YES completion:nil];
+    
+    }
+    
 }
 
 - (IBAction)startAction:(UIButton *)sender forEvent:(UIEvent *)event {
@@ -292,8 +312,9 @@
     formatter.dateFormat = @"MM-dd";
     NSString *thDate = [formatter stringFromDate:date];
     
-    StartTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
-    
+   // StartTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+        
+        [[StorageMgr singletonStorageMgr] addKey:@"startTime" andValue:thDate];
     [_StartDateBtn setTitle:thDate forState:UIControlStateNormal];
     _superView.hidden = YES;
     _toolBar.hidden = YES;
@@ -305,8 +326,8 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"MM-dd";
         NSString *thDate = [formatter stringFromDate:date];
-        
-        EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
+        [[StorageMgr singletonStorageMgr] addKey:@"endTime" andValue:thDate];
+       // EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
         
         [_endDateBtn setTitle:thDate forState:UIControlStateNormal];
         _superView.hidden = YES;

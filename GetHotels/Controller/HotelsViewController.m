@@ -40,6 +40,7 @@
 @property (strong, nonatomic) NSMutableArray *AdImgarr;
 @property (strong, nonatomic) NSMutableArray *AdImgarr1;
 @property (weak, nonatomic) IBOutlet UITableView *hotelsTableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *MysearchBar;
 
 @property (weak, nonatomic) IBOutlet UIView *CycleAdView;
 
@@ -101,6 +102,13 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     //设置是否需要毛玻璃效果
     self.navigationController.navigationBar.translucent = YES;
+    [self.view setBackgroundColor:[UIColor colorWithRed:239.0/255 green:239.0/255 blue:239.0/255 alpha:1.0f]];
+    _MysearchBar.layer.borderWidth = 0;
+   // _MysearchBar.layer.borderColor = [UIColor whiteColor];    //_MysearchBar.delegate = self;
+     _MysearchBar.barStyle=UIBarStyleDefault;
+
+    [ _MysearchBar setShowsCancelButton:NO];//显示右侧取消按钮
+     _MysearchBar.keyboardType=UIKeyboardTypeNamePhonePad;
     
 }
 //键盘收回
@@ -179,7 +187,7 @@
               
                
             }
-            NSLog(@"网址：%@",_AdImgarr[2]);
+            NSLog(@"网址：%@",_AdImgarr[1]);
             [self addZLImageViewDisPlayView:_AdImgarr];
             for (NSDictionary *dict in result) {
               HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];

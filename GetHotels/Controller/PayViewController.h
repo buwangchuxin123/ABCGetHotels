@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HotelsModel.h"
 
 @interface PayViewController : UIViewController
-
+@property (strong,nonatomic)HotelsModel *payModel;
 @end

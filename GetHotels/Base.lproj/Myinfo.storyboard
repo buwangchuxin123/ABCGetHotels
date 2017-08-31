@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6jb-ze-Ny1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6jb-ze-Ny1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -274,8 +274,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20G-Jr-n6j">
-                                <rect key="frame" x="100" y="384" width="175" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="100" y="360" width="175" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="登录">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -284,7 +284,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tj9-aZ-sx2">
-                                <rect key="frame" x="25" y="104" width="325" height="240"/>
+                                <rect key="frame" x="25" y="60" width="325" height="240"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SSn-gb-3j3">
                                         <rect key="frame" x="0.0" y="0.0" width="325" height="240"/>
@@ -295,8 +295,8 @@
                                             <constraint firstAttribute="width" secondItem="IMB-gQ-LZL" secondAttribute="height" multiplier="1:1" id="Web-HV-Sl0"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layercorner.Radius">
-                                                <integer key="value" value="20"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="30"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
@@ -387,7 +387,7 @@
                             <constraint firstItem="Tj9-aZ-sx2" firstAttribute="top" secondItem="HmP-SP-EQR" secondAttribute="bottom" constant="40" id="VHf-iq-ZQc"/>
                             <constraint firstItem="20G-Jr-n6j" firstAttribute="leading" secondItem="Vas-wU-uIW" secondAttribute="leading" constant="100" id="hUl-ec-u18"/>
                             <constraint firstAttribute="trailing" secondItem="Tj9-aZ-sx2" secondAttribute="trailing" constant="25" id="kaJ-Mw-tsQ"/>
-                            <constraint firstItem="20G-Jr-n6j" firstAttribute="top" secondItem="Tj9-aZ-sx2" secondAttribute="bottom" constant="40" id="uwM-dj-Ivd"/>
+                            <constraint firstItem="20G-Jr-n6j" firstAttribute="top" secondItem="Tj9-aZ-sx2" secondAttribute="bottom" constant="60" id="uwM-dj-Ivd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="会员登录" id="gaO-bz-5y7"/>
@@ -415,7 +415,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJw-E9-1aw">
-                                <rect key="frame" x="36" y="109" width="314" height="260"/>
+                                <rect key="frame" x="36" y="65" width="314" height="260"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="登录图标" translatesAutoresizingMaskIntoConstraints="NO" id="MZy-89-YNI">
                                         <rect key="frame" x="25" y="60" width="24" height="36"/>
@@ -469,8 +469,8 @@
                                             <constraint firstAttribute="width" secondItem="dkW-8u-PCc" secondAttribute="height" multiplier="1:1" id="YSA-sP-ZOc"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layercarner.Radius">
-                                                <integer key="value" value="20"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <real key="value" value="32.5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
@@ -520,7 +520,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07W-D7-wrf">
-                                <rect key="frame" x="100" y="409" width="175" height="30"/>
+                                <rect key="frame" x="100" y="365" width="175" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="注册">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -811,6 +811,6 @@
         <image name="默认头像" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="r0T-wi-cXV"/>
+        <segue reference="1P0-wW-zAd"/>
     </inferredMetricsTieBreakers>
 </document>

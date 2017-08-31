@@ -120,9 +120,16 @@
                                             <constraint firstAttribute="width" secondItem="OoL-2O-Mcl" secondAttribute="height" multiplier="1:1" constant="1" id="m2E-GW-SbP"/>
                                         </constraints>
                                     </imageView>
-                                    <searchBar contentMode="redraw" placeholder="搜索酒店/街道/城市" translatesAutoresizingMaskIntoConstraints="NO" id="9gu-gj-msM">
+                                    <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="搜索酒店/街道/城市" translatesAutoresizingMaskIntoConstraints="NO" id="9gu-gj-msM">
                                         <rect key="frame" x="83" y="5" width="197" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <offsetWrapper key="searchFieldBackgroundPositionAdjustment" horizontal="1" vertical="0.0"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="3K6-sy-loY" id="1Mz-59-07J"/>
                                         </connections>
@@ -263,6 +270,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="CycleAdView" destination="Kj2-rG-60X" id="lcp-2O-6ZS"/>
+                        <outlet property="MysearchBar" destination="9gu-gj-msM" id="hL8-6A-Xyl"/>
                         <outlet property="cityBtn" destination="oQ8-HF-ms1" id="txL-vM-umx"/>
                         <outlet property="hotelsTableView" destination="gVa-J9-5sH" id="erN-VA-4BF"/>
                         <outlet property="temperature" destination="aJ8-lq-cMP" id="Xhg-T5-jV0"/>

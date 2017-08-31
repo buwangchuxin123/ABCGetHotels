@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PayTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *PayTypeLbl;
 
 @end
