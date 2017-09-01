@@ -64,7 +64,7 @@
     _inTime = @"2017-08-25";
     _outTime = @"2017-08-26";
     _sortingId = @"1";
-    _city_name = [[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]?@"":[Utilities getUserDefaults:@"UserCity"] ;
+    _city_name = [[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]?@"无锡":[Utilities getUserDefaults:@"UserCity"] ;
     _wxlongitude = @"120.300000";
 
     
@@ -473,7 +473,7 @@
         [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
         _cityBtn.titleLabel.text = cityStr;
         _city_name = _cityBtn.titleLabel.text;
-         NSLog(@"city name1:%@",_city_name);
+       //  NSLog(@"city name1:%@",_city_name);
         //修改用户选择的城市
         [Utilities removeUserDefaults:@"UserCity"];
         [Utilities setUserDefaults:@"UserCity" content:cityStr];

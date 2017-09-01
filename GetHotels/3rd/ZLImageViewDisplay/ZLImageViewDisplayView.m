@@ -178,7 +178,7 @@
                 UIImage *imageTemp = [UIImage imageNamed:imageName];
                 [tempImageView setImage:imageTemp];
                 
-                 NSLog(@"我不是网址");
+                // NSLog(@"我不是网址");
                 
             }
             
