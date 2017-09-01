@@ -42,6 +42,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *checkInTimeLbl;
 @property (weak, nonatomic) IBOutlet UILabel *leaveTimeLbl;
 @property (weak, nonatomic) IBOutlet UILabel *isCarrayPetLbl;
+@property (weak, nonatomic) IBOutlet UIButton *PurcharseBtn;
+
+
 - (IBAction)roomTypeAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)ChatAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)purchaseAction:(UIButton *)sender forEvent:(UIEvent *)event;
@@ -54,8 +57,10 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UIDatePicker *dataPicker;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
-
-
+@property (strong,nonatomic)NSDate *startDay;
+@property (strong,nonatomic)NSDate *endDay;
+@property (strong,nonatomic)NSString *istoDay;
+@property (strong,nonatomic)NSString *istomoDay;
 
 @property (strong, nonatomic) NSMutableArray *AdImgarr;
 
@@ -96,7 +101,7 @@
     //实例化一个button 类型为UIButtonTypeSystem
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    leftBtn.frame = CGRectMake(0, 0, 15, 20);
     //设置其背景图片为返回图片
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
     //给按钮添加事件
@@ -136,20 +141,21 @@
     _price.text = [NSString stringWithFormat:@"¥ %@",_Hotel.now_price];
     _address.text = _Hotel.hotel_address;
     
-    NSDate *now = [NSDate date];//调用该行代码的时间
+    _startDay = [NSDate date];//调用该行代码的时间
     NSDateFormatter *nowformatter = [[NSDateFormatter alloc] init];
-    nowformatter.dateFormat = @"MM-dd";
-    NSString *thDate = [nowformatter stringFromDate:now];
-    [[StorageMgr singletonStorageMgr] addKey:@"startTime" andValue:thDate];
-    [_StartDateBtn setTitle:thDate forState:UIControlStateNormal];
+    nowformatter.dateFormat = @"MM月dd日";
+    _istoDay = [nowformatter stringFromDate:_startDay];
+    [[StorageMgr singletonStorageMgr] addKey:@"startTime" andValue:_istoDay];
+    [_StartDateBtn setTitle:_istoDay forState:UIControlStateNormal];
+    _StartDateBtn.titleLabel.text = _istoDay;
     
-    
-    NSDate *tomorrow = [NSDate dateTomorrow];
+    _endDay = [NSDate dateTomorrow];
     NSDateFormatter *tomoformatter = [[NSDateFormatter alloc] init];
-    tomoformatter.dateFormat = @"MM-dd";
-    NSString *tomoDate = [tomoformatter stringFromDate:tomorrow];
-    [[StorageMgr singletonStorageMgr] addKey:@"endTime" andValue:tomoDate];
-    [_endDateBtn setTitle:tomoDate forState:UIControlStateNormal];
+    tomoformatter.dateFormat = @"MM月dd日";
+    _istomoDay = [tomoformatter stringFromDate:_endDay];
+    [[StorageMgr singletonStorageMgr] addKey:@"endTime" andValue:_istomoDay];
+    [_endDateBtn setTitle:_istomoDay forState:UIControlStateNormal];
+    _endDateBtn.titleLabel.text = _istomoDay;
     NSURL *URL = [NSURL URLWithString:_Hotel.hotel_img];
     [_UIimage sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"大床房"] ];
   //  _UIimage.image = [UIImage imageNamed:@"酒店-1"];
@@ -181,7 +187,7 @@
     }
     
 }
- 
+
 - (void)netRequest{
     _avi = [Utilities getCoverOnView:self.view];
       NSNumber *ID = @-1 ;
@@ -199,15 +205,8 @@
         if([responseObject[@"result"] integerValue] == 1){
             NSDictionary *content = responseObject[@"content"];
             _Hotel = [[HotelsModel alloc] initWithDetailDict:content];
-            NSArray *arr = _Hotel.hotel_imgs;
-            for(NSString*str in arr)
-            {
-                [_AdImgarr addObject:str];
-            }
-            [self uiLayout];
-            for(NSString * str in _AdImgarr){
-                NSLog(@"数组里的是：%@",str);
-            }
+               [self uiLayout];
+            
             
                 [self addZLImageViewDisPlayView:_AdImgarr];
          
@@ -266,6 +265,16 @@
 }
 
 - (IBAction)purchaseAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    NSTimeInterval  startTime = [Utilities cTimestampFromString:_StartDateBtn.titleLabel.text format:@"MM月dd日"];
+    NSLog(@"start:%f",startTime);
+    NSTimeInterval  endTime = [Utilities cTimestampFromString:_endDateBtn.titleLabel.text format:@"MM月dd日"];
+    //NSLog(@"end:%f",endTime);
+   // NSLog(@"文本:%@",_endDateBtn.titleLabel.text);
+    if(startTime>=endTime){
+        [Utilities popUpAlertViewWithMsg:@"结束日期小于等于开始日期" andTitle:@"提示" onView:self];
+         _PurcharseBtn.enabled = NO;
+    }else{
+    
     if(1){//[Utilities loginCheck]
         //1.获得要跳转的页面的实例
         PayViewController *PayVc = [Utilities getStoryboardInstance:@"Detail" byIdentity:@"Pay"];
@@ -283,7 +292,7 @@
     }
     
 }
-
+}
 - (IBAction)startAction:(UIButton *)sender forEvent:(UIEvent *)event {
      flag = 0;
     _superView.hidden = NO;
@@ -306,36 +315,56 @@
     _superView.hidden = YES;
 }
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
+  
     if(flag == 0){
-    NSDate *date = _dataPicker.date;
+   _startDay = _dataPicker.date;
+    _PurcharseBtn.enabled = YES;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"MM-dd";
-    NSString *thDate = [formatter stringFromDate:date];
+    formatter.dateFormat = @"MM月dd日";
+    NSString *thDate = [formatter stringFromDate:_startDay];
     
    // StartTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
         
         [[StorageMgr singletonStorageMgr] addKey:@"startTime" andValue:thDate];
     [_StartDateBtn setTitle:thDate forState:UIControlStateNormal];
+        _StartDateBtn.titleLabel.text = thDate;
+        if(![_istoDay isEqualToString:_StartDateBtn.titleLabel.text]){
+            NSLog(@"日期是：%@",_istoDay);
+            NSLog(@"文本是：%@",_StartDateBtn.titleLabel.text);
+            _starDayLbl.hidden = YES;
+        }
     _superView.hidden = YES;
     _toolBar.hidden = YES;
     _dataPicker.hidden = YES;
+    
     }
   if(flag == 1){
-    
-        NSDate *date = _dataPicker.date;
+   
+        _endDay= _dataPicker.date;
+        _PurcharseBtn.enabled = YES;
+      
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"MM-dd";
-        NSString *thDate = [formatter stringFromDate:date];
+        formatter.dateFormat = @"MM月dd日";
+        NSString *thDate = [formatter stringFromDate:_endDay];
         [[StorageMgr singletonStorageMgr] addKey:@"endTime" andValue:thDate];
        // EndTime = [Utilities cTimestampFromString:thDate format:@"MM-dd"];
         
         [_endDateBtn setTitle:thDate forState:UIControlStateNormal];
-        _superView.hidden = YES;
+        _endDateBtn.titleLabel.text = thDate;
+      if(![_istomoDay isEqualToString:_endDateBtn.titleLabel.text]){
+          _endDayLbl.hidden = YES;
+      }
+         _superView.hidden = YES;
         _toolBar.hidden = YES;
         _dataPicker.hidden = YES;
-    
+      
+      
+      }
+   
     }
 
-}
+
+
+
 
 @end

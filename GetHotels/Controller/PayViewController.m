@@ -44,7 +44,7 @@
     //实例化一个button 类型为UIButtonTypeSystem
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    leftBtn.frame = CGRectMake(0, 0, 15, 20);
     //设置其背景图片为返回图片
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
     //给按钮添加事件

@@ -1098,6 +1098,7 @@
                     <navigationItem key="navigationItem" id="sR1-Nc-oYW"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="PurcharseBtn" destination="b33-ei-agn" id="2xA-Ya-DUL"/>
                         <outlet property="StartDateBtn" destination="o0Y-uX-KIJ" id="gpb-7i-qVU"/>
                         <outlet property="UIimage" destination="hzy-yr-jvS" id="87c-j1-u88"/>
                         <outlet property="adView" destination="6he-Ty-Vqe" id="nEX-kG-nnc"/>
