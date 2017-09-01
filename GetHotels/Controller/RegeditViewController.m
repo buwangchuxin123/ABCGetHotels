@@ -15,6 +15,7 @@
 - (IBAction)regeditBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 //@property (strong, nonatomic) CLLocationManager *locMgr;
 @property (weak, nonatomic) IBOutlet UIButton *regeditBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *headPortrait;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 @property (weak, nonatomic) IBOutlet UIImageView *shadowImageView;
 @end
@@ -34,7 +35,7 @@
 }
 //这个方法专门做导航条的控制
 - (void)naviConfig{
-    
+    _headPortrait.layer.borderColor=[UIColor whiteColor].CGColor;
     //设置导航条的颜色（风格颜色）
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(23, 124, 236);
     //设置导航条标题颜色

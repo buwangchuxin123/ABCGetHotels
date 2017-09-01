@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *shadowImageView;
 - (IBAction)loginBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIImageView *headPortrait;
 
 
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
@@ -71,10 +72,11 @@
 }
 //用model的方式返回上一页
 -(void)backAction{
-    //[self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 -(void)uiLayout{
+    _headPortrait.layer.borderColor=[UIColor whiteColor].CGColor;
     if (![[Utilities getUserDefaults:@"UserTel"]isKindOfClass:[NSNull class]]) {
         if ([Utilities getUserDefaults:@"UserTel"]!=nil) {
             //将它显示在用户名输入框
