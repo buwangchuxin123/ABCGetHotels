@@ -52,10 +52,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+   
+//    _AdImgarr1  = [[NSMutableArray alloc]initWithObjects:@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png",@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png",@"http://ac-tscmo0vq.clouddn.com/1cbe1d0ad3bae6214d59.jpg",@"http://ac-tscmo0vq.clouddn.com/b3ca642f7a9297e907c7.jpg",@"http://ac-tscmo0vq.clouddn.com/5c1f5d0dd16e0888ecd0.jpg",nil];
     flag = YES;
     _AdImgarr  =   [NSMutableArray new];
     _firstResArr = [NSMutableArray new];
-    _AdImgarr1  = [[NSMutableArray alloc]initWithObjects:@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png",@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png",@"http://ac-tscmo0vq.clouddn.com/1cbe1d0ad3bae6214d59.jpg",@"http://ac-tscmo0vq.clouddn.com/b3ca642f7a9297e907c7.jpg",@"http://ac-tscmo0vq.clouddn.com/5c1f5d0dd16e0888ecd0.jpg",nil];
     pageNum = 1;
     pageSize = 10;
     startId = 1;
@@ -63,14 +64,20 @@
     _inTime = @"2017-08-25";
     _outTime = @"2017-08-26";
     _sortingId = @"1";
-    _city_name = @"无锡";
+    _city_name = [[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]?@"":[Utilities getUserDefaults:@"UserCity"] ;
     _wxlongitude = @"120.300000";
-    _wxlatitude = @"31.570000";
+
+    
+//     double loc = _location.coordinate.longitude;
+//    _wxlongitude = [NSString stringWithFormat:@"%f",loc];
+    
+    _wxlatitude =@"31.570000";
+    
     [self naviConfig];
     [self netRequest];
-    
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
-  // NSLog(@"数组里的是:%@",_AdImgarr[2]);
+  
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,6 +99,8 @@
     //关掉开关
     [_locMgr stopUpdatingLocation];
 }
+
+
 - (void)naviConfig{
      self.navigationItem.title = @"GetHotels";
     //设置导航条的颜色（风格颜色）
@@ -160,7 +169,8 @@
         NSString *userCity = [Utilities getUserDefaults:@"UserCity"];
         [_cityBtn setTitle:userCity forState:UIControlStateNormal];
     }
-    
+   // _city_name = _cityBtn.titleLabel.text;
+   // NSLog(@"city name:%@",_city_name);
     firstVisit = YES;
     isLoding = NO;
 //    _arr = [NSMutableArray new];
@@ -172,10 +182,11 @@
 
 
 - (void)netRequest{
+    NSLog(@"city_name:%@",_city_name);
     _avi = [Utilities getCoverOnView:self.view];
     NSDictionary *para =  @{@"city_name":_city_name,@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"startId":@(startId),@"priceId":@(priceId),@"sortingId":_sortingId,@"inTime":_inTime,@"outTime":_outTime,@"wxlatitude":_wxlatitude ,@"wxlongitude":_wxlongitude};
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-      NSLog(@"responseObject:%@", responseObject);
+      //NSLog(@"responseObject:%@", responseObject);
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){
@@ -190,14 +201,14 @@
               
                
             }
-            NSLog(@"网址：%@",_AdImgarr[1]);
+           // NSLog(@"网址：%@",_AdImgarr[1]);
             if(flag){
                 flag = NO;
             [self addZLImageViewDisPlayView:_AdImgarr];
             }
             for (NSDictionary *dict in result) {
               HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
-              NSLog(@"结果：%@",resultModel.hotelId);
+             // NSLog(@"结果：%@",resultModel.hotelId);
              
               [_firstResArr addObject:resultModel];
               
@@ -397,8 +408,9 @@
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation{
-    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
-    NSLog(@"经度:%f",newLocation.coordinate.longitude);
+   //  NSLog(@"纬度:%f",newLocation.coordinate.latitude);
+   // NSLog(@"经度:%f",newLocation.coordinate.longitude);
+    //_wxlatitude = newLocation.coordinate.latitude;
     _location = newLocation;
     //用flag思想判断是否可以去根据定位拿到城市
     if (firstVisit) {
@@ -420,7 +432,7 @@
             if (!error) {
                 CLPlacemark *first = placemarks.firstObject;
                 NSDictionary *locDict = first.addressDictionary;
-                NSLog(@"locDict:%@",locDict);
+               // NSLog(@"locDict:%@",locDict);
                 NSString *cityStr = locDict[@"City"];
                 cityStr = [cityStr substringToIndex:(cityStr.length - 1)];
                 [[StorageMgr singletonStorageMgr] removeObjectForKey:@"LocCity"];
@@ -459,11 +471,15 @@
     if (![cityStr isEqualToString:_cityBtn.titleLabel.text]) {
         //修改城市按钮标题
         [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
+        _cityBtn.titleLabel.text = cityStr;
+        _city_name = _cityBtn.titleLabel.text;
+         NSLog(@"city name1:%@",_city_name);
         //修改用户选择的城市
         [Utilities removeUserDefaults:@"UserCity"];
         [Utilities setUserDefaults:@"UserCity" content:cityStr];
-        //重新进行网络请求
+         //重新进行网络请求
         [self netRequest];
+        [_hotelsTableView reloadData];
     }
     
 }

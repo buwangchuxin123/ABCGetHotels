@@ -275,7 +275,7 @@
          _PurcharseBtn.enabled = NO;
     }else{
     
-    if(1){//[Utilities loginCheck]
+    if([Utilities loginCheck]){//[Utilities loginCheck]
         //1.获得要跳转的页面的实例
         PayViewController *PayVc = [Utilities getStoryboardInstance:@"Detail" byIdentity:@"Pay"];
         UINavigationController *Pc = [[UINavigationController alloc] initWithRootViewController:PayVc];
