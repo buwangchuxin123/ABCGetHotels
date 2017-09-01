@@ -28,6 +28,7 @@
     [self naviConfig];
     [self uilayout];
     [self dataInitialize];
+  
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -61,9 +62,9 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     //设置是否需要毛玻璃效果
     self.navigationController.navigationBar.translucent = YES;
-    //为导航条左上角创建一个按钮
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
-    self.navigationItem.leftBarButtonItem = left;
+//    //为导航条左上角创建一个按钮
+//    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
+//    self.navigationItem.leftBarButtonItem = left;
 }
 
 - (void) uilayout {
@@ -80,6 +81,7 @@
     
     
 }
+
 - (void) locationStart {
     //这个方法专门处理定位的基本设置
     _locMgr = [CLLocationManager new];
@@ -93,11 +95,12 @@
     [_locMgr startUpdatingLocation];
 }
 
-//用model的方式返回上一页
-- (void)backAction{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    //[self.navigationController popViewControllerAnimated:YES];//用push返回上一页
-}
+
+//- (void)backAction{
+//    //消失页面
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//    //[self.navigationController popViewControllerAnimated:YES];//用push返回上一页
+//}
 
 - (void) dataInitialize {
     firstVisit = YES;
@@ -308,7 +311,6 @@
         [_locMgr stopUpdatingLocation];
     });
 }
-
 
 
 @end

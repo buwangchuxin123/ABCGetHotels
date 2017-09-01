@@ -167,19 +167,19 @@
              
                 
             } else {
-                NSLog(@"名字是：%@",imageName);
-                NSString *str = @"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png";
-                NSString* imageName1 = imageName;
-                if([imageName1 isEqualToString: str]){
-                    
-                    UIImage *imageTemp = [UIImage imageNamed:@"二"];
-                    [tempImageView setImage:imageTemp];
-                }else{
+//                NSLog(@"名字是：%@",imageName);
+//                NSString *str = @"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png";
+//                NSString* imageName1 = imageName;
+//                if([imageName1 isEqualToString: str]){
+//                    
+//                    UIImage *imageTemp = [UIImage imageNamed:@"二"];
+//                    [tempImageView setImage:imageTemp];
+//                }else{
                 UIImage *imageTemp = [UIImage imageNamed:imageName];
                 [tempImageView setImage:imageTemp];
                 
-                NSLog(@"我不是网址");
-                }
+                 NSLog(@"我不是网址");
+                
             }
             
             
@@ -192,9 +192,7 @@
 }
 
 -(BOOL) verifyURL:(NSString *)url{
-    if([url isEqualToString:@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png"]){
-      return YES;
-    }else{
+    
     
     NSString *pattern = @"((http|ftp|https)://)(([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{2,6})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\\&%_\\./-~-]*)?";
     
@@ -202,7 +200,7 @@
     BOOL isMatch = [pred evaluateWithObject:url];
      return isMatch;
     //return YES;
-    }
+    
 }
 
 - (void) addTimerLoop{

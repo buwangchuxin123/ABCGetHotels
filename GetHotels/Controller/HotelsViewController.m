@@ -13,6 +13,7 @@
 @interface HotelsViewController ()<UITableViewDataSource ,UITableViewDelegate, CLLocationManagerDelegate>{
     BOOL isLoding;//判断是不是在加载中
     BOOL firstVisit;
+    BOOL flag;
     NSInteger pageNum;
     NSInteger pageSize;
     NSInteger startId;
@@ -51,6 +52,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    flag = YES;
     _AdImgarr  =   [NSMutableArray new];
     _firstResArr = [NSMutableArray new];
     _AdImgarr1  = [[NSMutableArray alloc]initWithObjects:@"http://ac-tscmo0vq.clouddn.com/2a4957a871985ea0b0ec.png",@"http://ac-tscmo0vq.clouddn.com/8060e54840115e3dc743.png",@"http://ac-tscmo0vq.clouddn.com/1cbe1d0ad3bae6214d59.jpg",@"http://ac-tscmo0vq.clouddn.com/b3ca642f7a9297e907c7.jpg",@"http://ac-tscmo0vq.clouddn.com/5c1f5d0dd16e0888ecd0.jpg",nil];
@@ -67,6 +69,7 @@
     [self naviConfig];
     [self netRequest];
     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
   // NSLog(@"数组里的是:%@",_AdImgarr[2]);
 }
 
@@ -188,7 +191,10 @@
                
             }
             NSLog(@"网址：%@",_AdImgarr[1]);
+            if(flag){
+                flag = NO;
             [self addZLImageViewDisPlayView:_AdImgarr];
+            }
             for (NSDictionary *dict in result) {
               HotelsModel *resultModel = [[HotelsModel alloc] initWithDict:dict];
               NSLog(@"结果：%@",resultModel.hotelId);
@@ -455,7 +461,7 @@
         [Utilities removeUserDefaults:@"UserCity"];
         [Utilities setUserDefaults:@"UserCity" content:cityStr];
         //重新进行网络请求
-       // [self networkRequest];
+        [self netRequest];
     }
     
 }
