@@ -64,7 +64,9 @@
     _inTime = @"2017-08-25";
     _outTime = @"2017-08-26";
     _sortingId = @"1";
-    _city_name = [[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]?@"无锡":[Utilities getUserDefaults:@"UserCity"] ;
+    _city_name = @"无锡";//[[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]?@"无锡":[Utilities getUserDefaults:@"UserCity"] ;
+   
+    //NSLog(@"%@",[Utilities getUserDefaults:@"UserCity"]);
     _wxlongitude = @"120.300000";
 
     
@@ -182,7 +184,7 @@
 
 
 - (void)netRequest{
-    NSLog(@"city_name:%@",_city_name);
+   // NSLog(@"city_name:%@",_city_name);
     _avi = [Utilities getCoverOnView:self.view];
     NSDictionary *para =  @{@"city_name":_city_name,@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"startId":@(startId),@"priceId":@(priceId),@"sortingId":_sortingId,@"inTime":_inTime,@"outTime":_outTime,@"wxlatitude":_wxlatitude ,@"wxlongitude":_wxlongitude};
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {

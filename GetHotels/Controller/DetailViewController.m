@@ -199,7 +199,7 @@
     NSDictionary *para =  @{@"id":ID};
             
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"responseObject:%@", responseObject);
+       // NSLog(@"responseObject:%@", responseObject);
         [_avi stopAnimating];
         
         if([responseObject[@"result"] integerValue] == 1){

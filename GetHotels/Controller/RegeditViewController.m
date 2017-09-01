@@ -78,7 +78,7 @@
 -(void)networkRequest{
     _avi = [Utilities getCoverOnView:self.view];
     NSDictionary *para = @{@"tel":_phoneTextField.text,@"pwd":_passwordTextField.text};
-    NSLog(@"参数:%@",para);
+    //NSLog(@"参数:%@",para);
     [RequestAPI requestURL:@"/register" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         NSLog(@"%@",responseObject);
