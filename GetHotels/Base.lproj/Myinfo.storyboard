@@ -509,7 +509,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginBtn:" destination="QVw-a0-CRe" eventType="touchUpInside" id="iPh-jC-NJf"/>
                                     <action selector="loginBtnAction:forEvent:" destination="QVw-a0-CRe" eventType="touchUpInside" id="e1v-dM-byI"/>
                                 </connections>
                             </button>
@@ -664,7 +663,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="SignInAction:forEvent:" destination="6bP-3V-r7V" eventType="touchUpInside" id="WDz-xS-LXb"/>
                                     <action selector="regeditBtn:forEvent:" destination="6bP-3V-r7V" eventType="touchUpInside" id="7Ev-d8-Fjo"/>
                                     <segue destination="QVw-a0-CRe" kind="show" identifier="regToLogin" id="CL8-TI-QNp"/>
                                 </connections>
